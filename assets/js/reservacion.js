@@ -1,26 +1,27 @@
 $(document).ready(function() {
-    $("#reservationBtn").click(function() {
-        var email = $("#email").val();
-        var numberOfGuests = $("#numberOfGuests").val();
-        var time = $("#time").val();
-        var date = $("#date").val();
 
+    alert("Bienvenido ")
+
+    // Capturar el evento de clic en el botón de envío
+    $("#reservationBtn").click(function() {
+
+        alert("Seleccionaste")
+
+        // Obtener los datos del formulario
+        var formData = $(".reservation-form").serialize();
+
+        // Enviar la solicitud AJAX
         $.ajax({
-            url: "guardar_reservacion.php",
             type: "POST",
-            data: {
-                email: email,
-                numberOfGuests: numberOfGuests,
-                time: time,
-                date: date
-            },
+            url: "assets/php/procesar_reservacion.php", // Archivo PHP para procesar los datos del formulario
+            data: formData,
             success: function(response) {
-                console.log(response);
-                // Realizar acciones adicionales después de guardar la reservación
+                // Mostrar la respuesta del servidor
+                alert(response);
             },
-            error: function(xhr, status, error) {
-                console.error(error);
-                // Manejar errores en caso de que la solicitud falle
+            error: function() {
+                // Manejar errores
+                alert("Error al enviar la solicitud AJAX");
             }
         });
     });

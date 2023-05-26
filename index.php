@@ -19,6 +19,7 @@ require_once 'assets/php/coneccionBD.php';
 
 
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -127,26 +128,31 @@ require_once 'assets/php/coneccionBD.php';
     <div class="container-fluid has-bg-overlay text-center text-light has-height-lg middle-items" id="book-table">
         <div class="">
             <h2 class="section-title mb-5">Reservar una Mesa</h2>
-            <div class="row mb-5">
-                <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                    <input type="email" id="email" class="form-control form-control-lg custom-form-control" placeholder="EMAIL">
+            <form class="reservation-form">
+                <div class="row mb-5">
+                    <div class="col-sm-6 col-md-3 col-xs-12 my-2">
+                        <input type="email" name="email" class="form-control form-control-lg custom-form-control" placeholder="EMAIL" required>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-xs-12 my-2">
+                        <input type="number" name="numberOfGuests" class="form-control form-control-lg custom-form-control" placeholder="NUMBER OF GUESTS" max="20" min="0" required>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-xs-12 my-2">
+                        <input type="time" name="time" class="form-control form-control-lg custom-form-control" placeholder="TIME" required>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-xs-12 my-2">
+                        <input type="date" name="date" class="form-control form-control-lg custom-form-control" placeholder="DATE" required>
+                    </div>
                 </div>
-                <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                    <input type="number" id="numberOfGuests" class="form-control form-control-lg custom-form-control" placeholder="NUMBER OF GUESTS" max="20" min="0">
-                </div>
-                <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                    <input type="time" id="time" class="form-control form-control-lg custom-form-control" placeholder="TIME">
-                </div>
-                <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                    <input type="date" id="date" class="form-control form-control-lg custom-form-control" placeholder="DATE">
-                </div>
-            </div>
-            <button class="btn btn-lg btn-primary" id="reservationBtn">Reservar</button>
+                <button type="button" class="btn btn-lg btn-primary" id="reservationBtn">Reservar</button>
+            </form>
         </div>
     </div>
 
+
+
+
     <!-- Seccion de Blog  -->
-    <div id="blog" class="container-fluid bg-dark text-light py-5 text-center wow fadeIn">
+    <div id=" blog" class="container-fluid bg-dark text-light py-5 text-center wow fadeIn">
         <h2 class="section-title py-5">Eventos en la Mesa de los Sabores</h2>
         <div class="row justify-content-center">
             <div class="col-sm-7 col-md-4 mb-5">
@@ -323,6 +329,11 @@ require_once 'assets/php/coneccionBD.php';
 
     <!-- FoodHut js -->
     <script src="assets/js/foodhut.js"></script>
+
+    <!--reservacion js -->
+    <script src="assets/js/reservacion.js"></script>
+
+    
 
 </body>
 

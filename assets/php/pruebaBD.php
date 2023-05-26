@@ -1,7 +1,7 @@
 <?php
 
 require_once 'coneccionBD.php';
-/*
+
 // Crear la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -14,10 +14,6 @@ echo "Conexión exitosa a la base de datos.";
 
 // Cerrar la conexión
 $conn->close();
-
-*/
-
-
 
 
 ?>
