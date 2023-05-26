@@ -16,6 +16,7 @@ require_once 'assets/php/coneccionBD.php';
     <link rel="stylesheet" href="assets/vendors/animate/animate.css">
     <link rel="stylesheet" href="assets/css/foodhut.css">
     <link rel="stylesheet" href="assets/css/StyleIndex.css">
+    
 
 
 </head>
@@ -333,7 +334,7 @@ require_once 'assets/php/coneccionBD.php';
     <!--reservacion js -->
     <script src="assets/js/reservacion.js"></script>
 
-    
+
 
 </body>
 
