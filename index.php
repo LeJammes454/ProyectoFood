@@ -59,7 +59,7 @@ require_once 'assets/php/coneccionBD.php';
                     <a class="nav-link" href="#contact">Contactanos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="components.html" class="btn btn-primary ml-xl-4">[[Components]]</a>
+                    <a href="assets/pages/loginRegister.php" class="btn btn-primary ml-xl-4">Iniciar Sesion</a>
                 </li>
             </ul>
         </div>

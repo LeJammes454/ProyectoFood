@@ -1,10 +1,12 @@
 <?php
 require_once 'configuracionBD.php';
 
-class Database {
+class Database
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         // Crear la conexión
         $this->conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
 
@@ -14,7 +16,8 @@ class Database {
         }
     }
 
-    public function getDatosMenu() {
+    public function getDatosMenu()
+    {
         $sql = "SELECT nombre, url FROM MENU";
         $result = $this->conn->query($sql);
 
@@ -29,7 +32,8 @@ class Database {
         return $datos;
     }
 
-    public function guardarReservacion($email, $numeroPersona, $hora, $dia) {
+    public function guardarReservacion($email, $numeroPersona, $hora, $dia)
+    {
         $sql = "INSERT INTO RESERVACION (EMAIL, NUMEROPERSONA, HORA, DIA) VALUES ('$email', $numeroPersona, '$hora', '$dia')";
 
         if ($this->conn->query($sql) === TRUE) {
@@ -38,9 +42,66 @@ class Database {
             return false; // Error al guardar la reservación
         }
     }
+    public function registrarUsuario(
+        $nombre,
+        $apellido_paterno,
+        $apellido_materno,
+        $contrasenia,
+        $numero_telefonico,
+        $direccion,
+        $codigo_postal,
+        $correo
+    ) {
+        // Verificar si el correo ya existe en la base de datos
+        $sql_verificar = "SELECT * FROM USUARIOS WHERE CORREO = '$correo'";
+        $result_verificar = $this->conn->query($sql_verificar);
 
-    public function cerrarConexion() {
+        if ($result_verificar->num_rows > 0) {
+            return false; // Error al registrar usuario
+        } else {
+            // Preparar y ejecutar la consulta SQL para insertar los datos en la tabla
+            $sql = "INSERT INTO USUARIOS (NOMBRE, APELLIDOM, APELLIDOP, CONTRASENIA, TELEFONO, DIRECCION, CODIGOPOSTAL, CORREO)
+        VALUES ('$nombre', '$apellido_materno', '$apellido_paterno', '$contrasenia', '$numero_telefonico', '$direccion', '$codigo_postal', '$correo')";
+
+            if ($this->conn->query($sql) === TRUE) {
+                return true; // Éxito al registrar usuario
+            } else {
+                return false; // Error al registrar usuario
+            }
+        }
+    }
+
+    public function loginVerificarCorreo($nombre, $correo)
+    {
+        // Buscar el usuario en la base de datos por correo
+        $sql = "SELECT CONTRASENIA FROM USUARIOS WHERE CORREO = '$correo'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['CONTRASENIA'];
+
+            // Verificar la contraseña ingresada con el hash almacenado
+            if (password_verify($correo, $hashed_password)) {
+                session_start();
+
+                // Guardar información del usuario en la sesión si es necesario
+                $_SESSION['correo'] = $correo;
+
+                echo 'OK'; // Credenciales válidas
+
+                // Redirigir a la página deseada
+                header('Location: pagina_deseada.php');
+                exit; // Asegurarse de terminar la ejecución después de la redirección
+            } else {
+                echo 'Invalid'; // Credenciales inválidas
+            }
+        } else {
+            echo 'Invalid'; // Credenciales inválidas
+        }
+    }
+
+    public function cerrarConexion()
+    {
         $this->conn->close();
     }
 }
-?>

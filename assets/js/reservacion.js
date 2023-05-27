@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-    alert("Bienvenido ")
-
     // Capturar el evento de clic en el botón de envío
     $("#reservationBtn").click(function() {
 
