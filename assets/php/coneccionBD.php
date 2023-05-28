@@ -54,7 +54,7 @@ class Database
     {
         // Agreagar funcion para obtener el dia en español lunes
         // $diaSemana
-        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'COMIDA' AND DIA = 'lunes' LIMIT 3";
+        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3";
         $result = $this->conn->query($sql);
 
         $datos = array();

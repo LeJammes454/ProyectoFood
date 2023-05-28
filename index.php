@@ -118,14 +118,14 @@ require_once 'assets/php/coneccionBD.php';
             foreach ($datos as $row) {
                 $nombre = $row["nombre"];
                 $url = $row["url"];
-                
+
                 echo '<div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">';
-                 echo '<div class="crop-img">';
-                    echo '<img src="' . $url . '" alt="' . $nombre . '" class="rounded-0 card-img-top">';
+                echo '<div class="crop-img">';
+                echo '<img src="' . $url . '" alt="' . $nombre . '" class="rounded-0 card-img-top">';
                 echo '</div>';
-                    echo '<a href="#" class="gallary-overlay">';
-                        echo '<i class="gallary-icon ti-plus"></i>';
-                    echo '</a>';
+                echo '<a href="#" class="gallary-overlay">';
+                echo '<i class="gallary-icon ti-plus"></i>';
+                echo '</a>';
                 echo '</div>';
             }
         } else {
@@ -185,21 +185,15 @@ require_once 'assets/php/coneccionBD.php';
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="foods" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="row">
-
-
                     <?php
                     $database = new Database();
-
                     $datos = $database->getOfertasDiaComida();
-
                     if (!empty($datos)) {
                         foreach ($datos as $row) {
                             $url = $row['URL'];
                             $precio = $row['PRECIO'];
                             $nombre = $row['NOMBRE'];
                             $descripcion = $row['DESCRIPCION'];
-
-
                             echo '
                                 <div class="col-md-4">
                                     <div class="card bg-transparent ">
@@ -229,42 +223,40 @@ require_once 'assets/php/coneccionBD.php';
             </div>
             <div class="tab-pane fade" id="juices" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="row">
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="assets/imgs/blog-4.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$15</a></h1>
-                                <h4 class="pt20 pb20">Consectetur Adipisicing Elit</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="assets/imgs/blog-5.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$29</a></h1>
-                                <h4 class="pt20 pb20">Ullam Laboriosam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="assets/imgs/blog-6.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$3</a></h1>
-                                <h4 class="pt20 pb20">Fugit Ipsam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    $database = new Database();
+                    $datos = $database->getOfertasDiaJugos();
+                    if (!empty($datos)) {
+                        foreach ($datos as $row) {
+                            $url = $row['URL'];
+                            $precio = $row['PRECIO'];
+                            $nombre = $row['NOMBRE'];
+                            $descripcion = $row['DESCRIPCION'];
+                            echo '
+                                <div class="col-md-4">
+                                    <div class="card bg-transparent ">
+                                        <div class="crop-img-oferta">
+                                        <img src="' . $url . '" alt="#" class="rounded-0 card-img-top">
+                                        </div> 
+                                        <div class="card-body">
+                                            <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">' . $precio . '</a></h1>
+                                            <h4 class="pt20 pb20">' . $nombre . '</h4>
+                                            <p class="text-white">' . $descripcion . '</p>
+                                        </div>
+                                    </div>
+                                </div>';
+                            // Incrementar el contador
+                            $contador++;
+                            // Salir del bucle después de mostrar los tres elementos
+                            if ($contador == 3) {
+                                break;
+                            }
+                        }
+                    } else {
+                        echo "No se encontraron resultados.";
+                    }
+                    $database->cerrarConexion();
+                    ?>
                 </div>
             </div>
         </div>
