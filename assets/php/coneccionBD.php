@@ -71,32 +71,16 @@ class Database
         }
     }
 
-    public function loginVerificarCorreo($nombre, $correo)
+    public function loginVerificarCorreo($contrasenia, $correo)
     {
-        // Buscar el usuario en la base de datos por correo
-        $sql = "SELECT CONTRASENIA FROM USUARIOS WHERE CORREO = '$correo'";
-        $result = $this->conn->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $hashed_password = $row['CONTRASENIA'];
 
-            // Verificar la contraseña ingresada con el hash almacenado
-            if (password_verify($correo, $hashed_password)) {
-                session_start();
+        $sql="SELECT * FROM usuarios WHERE contrasenia = '$contrasenia' AND correo = '$correo';";
+        $result_verificar = $this->conn->query($sql);
 
-                // Guardar información del usuario en la sesión si es necesario
-                $_SESSION['correo'] = $correo;
-
-                echo 'OK'; // Credenciales válidas
-
-                // Redirigir a la página deseada
-                header('Location: pagina_deseada.php');
-                exit; // Asegurarse de terminar la ejecución después de la redirección
-            } else {
-                echo 'Invalid'; // Credenciales inválidas
-            }
+        if ($result_verificar->num_rows > 0) {
+            return true;
         } else {
-            echo 'Invalid'; // Credenciales inválidas
+            return false;
         }
     }
 

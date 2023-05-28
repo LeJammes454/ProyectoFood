@@ -4,19 +4,22 @@ require_once 'coneccionBD.php';
 
 $db = new Database();
 
-// Obtener los datos del formulario enviados por Ajax
-//$correo = $_POST['correo'];
-//$contrasenia = $_POST['contrasenia'];
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}else{
-    
+    // Obtener los datos del formulario enviados por Ajax
+    $correo = $_POST['correo'];
+    $contrasenia = $_POST['contrasenia'];
+    $contrasenia = hash('sha512',$contrasenia);
+
+    // Guardar la reservación utilizando la función de la clase Database
+    if ($db->loginVerificarCorreo($contrasenia,$correo)) {
+        session_start(); // Iniciar sesión
+        $_SESSION['correo'] = $correo; // Guardar el correo en la sesión
+        echo "ok";
+    } else {
+        echo "error";
+    }
 }
 
-
-
-$conn->close();
+// Cerrar la conexión
+$db->cerrarConexion();

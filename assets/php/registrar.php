@@ -15,15 +15,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $direccion = $_POST['direccion'];
     $codigo_postal = $_POST['codigo_postal'];
     $correo = $_POST['correo'];
+    $contrasenia = hash('sha512',$contrasenia);
+    //$hashed_password = password_hash($contrasenia, PASSWORD_DEFAULT);
 
-    $hashed_password = password_hash($contrasenia, PASSWORD_DEFAULT);
 
     // Guardar la reservación utilizando la función de la clase Database
     if ($db->registrarUsuario(
         $nombre,
         $apellido_paterno,
         $apellido_materno,
-        $hashed_password,
+        $contrasenia,
         $numero_telefonico,
         $direccion,
         $codigo_postal,

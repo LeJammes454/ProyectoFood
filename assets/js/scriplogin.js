@@ -114,6 +114,8 @@ $(document).ready(function () {
         var correo = $('input[name=correo]').val();
         var contrasenia = $('input[name=contrasenia]').val();
 
+        alert(correo)
+        alert(contrasenia)
         // Enviar los datos del formulario al servidor usando Ajax
         $.ajax({
             url: '../php/verificar_login.php', // Ruta al archivo PHP que manejará la solicitud
@@ -122,16 +124,15 @@ $(document).ready(function () {
                 correo: correo,
                 contrasenia: contrasenia
             },
-            // ...
             success: function (response) {
-                if (response === 'OK') {
+                if (response === 'ok') {
+                    window.location.href = '../pages/menu.html'; // Redirigir a la página deseada
+                } else if(response === 'admin'){
                     window.location.href = '#'; // Redirigir a la página deseada
                 } else {
                     alert('Credenciales inválidas');
                 }
             },
-            // ...
-
             error: function () {
                 // Manejar errores en caso de que la solicitud falle
                 alert('Error en el inicio de sesión');
