@@ -32,6 +32,41 @@ class Database
         return $datos;
     }
 
+    public function getOfertasDiaComida()
+    {
+        // Agreagar funcion para obtener el dia en español lunes
+        // $diaSemana
+        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'COMIDA' AND DIA = 'lunes' LIMIT 3";
+        $result = $this->conn->query($sql);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+    }
+
+    public function getOfertasDiaJugos()
+    {
+        // Agreagar funcion para obtener el dia en español lunes
+        // $diaSemana
+        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'COMIDA' AND DIA = 'lunes' LIMIT 3";
+        $result = $this->conn->query($sql);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+    }
     public function guardarReservacion($email, $numeroPersona, $hora, $dia)
     {
         $sql = "INSERT INTO RESERVACION (EMAIL, NUMEROPERSONA, HORA, DIA) VALUES ('$email', $numeroPersona, '$hora', '$dia')";
