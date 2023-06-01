@@ -26,7 +26,8 @@ require_once 'assets/php/coneccionBD.php';
 
     <!-- Navbar -->
     <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -142,16 +143,21 @@ require_once 'assets/php/coneccionBD.php';
             <form class="reservation-form">
                 <div class="row mb-5">
                     <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                        <input type="email" name="email" class="form-control form-control-lg custom-form-control" placeholder="EMAIL" required>
+                        <input type="email" name="email" class="form-control form-control-lg custom-form-control"
+                            placeholder="EMAIL" required>
                     </div>
                     <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                        <input type="number" name="numberOfGuests" class="form-control form-control-lg custom-form-control" placeholder="NUMBER OF GUESTS" max="20" min="0" required>
+                        <input type="number" name="numberOfGuests"
+                            class="form-control form-control-lg custom-form-control" placeholder="NUMBER OF GUESTS"
+                            max="20" min="0" required>
                     </div>
                     <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                        <input type="time" name="time" class="form-control form-control-lg custom-form-control" placeholder="TIME" required>
+                        <input type="time" name="time" class="form-control form-control-lg custom-form-control"
+                            placeholder="TIME" required>
                     </div>
                     <div class="col-sm-6 col-md-3 col-xs-12 my-2">
-                        <input type="date" name="date" class="form-control form-control-lg custom-form-control" placeholder="DATE" required>
+                        <input type="date" name="date" class="form-control form-control-lg custom-form-control"
+                            placeholder="DATE" required>
                     </div>
                 </div>
                 <button type="button" class="btn btn-lg btn-primary" id="reservationBtn">Reservar</button>
@@ -166,10 +172,12 @@ require_once 'assets/php/coneccionBD.php';
             <div class="col-sm-7 col-md-4 mb-5">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab" aria-controls="pills-home" aria-selected="true">Comida</a>
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab"
+                            aria-controls="pills-home" aria-selected="true">Comida</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab" aria-controls="pills-profile" aria-selected="false">Jugos</a>
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab"
+                            aria-controls="pills-profile" aria-selected="false">Jugos</a>
                     </li>
                 </ul>
             </div>
@@ -274,108 +282,38 @@ require_once 'assets/php/coneccionBD.php';
                 <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row mt-3 mb-5">
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row mt-3 mb-5">
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row mt-3 mb-5">
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-3 my-md-0">
-                            <div class="testmonial-card">
-                                <h3 class="testmonial-title">John Doe</h3>
-                                <h6 class="testmonial-subtitle">Web Designer</h6>
-                                <div class="testmonial-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <?php
+                $database = new Database();
+                $datos = $database->getReseniasmamalonas();
+                // Muestra los grupos de reseñas en los carruseles
+                $grupo = 0;
+                $grupoSize = 3;
+                foreach (array_chunk($datos, $grupoSize) as $grupoReseñas) {
+                    echo '<div class="carousel-item ' . ($grupo === 0 ? 'active' : '') . '">';
+                    echo '<div class="row mt-3 mb-5">';
+                    foreach ($grupoReseñas as $resena) {
+                        $nombre = $resena["NOMBRE"];
+                        $ocupacion = $resena["OCUPACION"];
+                        $textoResena = $resena["RESENA"];
+
+                        echo '<div class="col-md-4 my-3 my-md-0">';
+                        echo '<div class="testmonial-card">';
+                        echo '<h3 class="testmonial-title">' . $nombre . '</h3>';
+                        echo '<h6 class="testmonial-subtitle">' . $ocupacion . '</h6>';
+                        echo '<div class="testmonial-body">';
+                        echo '<p>' . $textoResena . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                    echo '</div>';
+                    $grupo++;
+                }
+                $database->cerrarConexion();
+                ?>
+
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -406,8 +344,8 @@ require_once 'assets/php/coneccionBD.php';
                     excepcional."</p>
                 <div class="text-muted">
                     <p><span class="ti-location-pin pr-3"></span> Av. Álvaro Obregón 10A, Uriangato,Guanajuato</p>
-                    <p><span class="ti-support pr-3"></span> (123) 456-7890</p>
-                    <p><span class="ti-email pr-3"></span>info@website.com</p>
+                    <p><span class="ti-support pr-3"></span> +52 443-419-8628</p>
+                    <p><span class="ti-email pr-3"></span>s19120178@alumnos.itsur.edu.mx</p>
                 </div>
             </div>
         </div>
@@ -417,12 +355,13 @@ require_once 'assets/php/coneccionBD.php';
     <div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
         <div class="row">
             <div class="col-sm-4">
-                <h3>Nuestro Correo</h3>
-                <P class="text-muted">info@website.com</P>
+                <h3>Nuestros Correo</h3>
+                <P class="text-muted">s19120178@alumnos.itsur.edu.mx</P>
+                <P class="text-muted">s19120178@alumnos.itsur.edu.mx</P>
             </div>
             <div class="col-sm-4">
                 <h3>Llamanos</h3>
-                <P class="text-muted">(123) 456-7890</P>
+                <P class="text-muted">+52 443-419-8628</P>
             </div>
             <div class="col-sm-4">
                 <h3>Encuentranos</h3>
@@ -434,7 +373,8 @@ require_once 'assets/php/coneccionBD.php';
         <p class="mb-0 py-3 text-muted small">&copy; Copyright
             <script>
                 document.write(new Date().getFullYear())
-            </script> hecho por <i class="ti-heart text-danger"></i> Tacos <a href="https://youtu.be/mCdA4bJAGGk">ITSUR</a>
+            </script> hecho por <i class="ti-heart text-danger"></i> Tacos <a
+                href="https://youtu.be/mCdA4bJAGGk">ITSUR</a>
         </p>
     </div>
     <!-- Fin de pagina footer -->
@@ -450,7 +390,8 @@ require_once 'assets/php/coneccionBD.php';
     <script src="assets/vendors/wow/wow.js"></script>
 
     <!-- google maps -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
 
     <!-- FoodHut js -->
     <script src="assets/js/foodhut.js"></script>

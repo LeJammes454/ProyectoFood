@@ -36,7 +36,7 @@ class Database
     {
         // Agreagar funcion para obtener el dia en español lunes
         // $diaSemana
-        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'COMIDA' AND DIA = 'lunes' LIMIT 3";
+        $sql = "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'COMIDA' AND DIA = 'lunes' LIMIT 3";
         $result = $this->conn->query($sql);
 
         $datos = array();
@@ -54,7 +54,7 @@ class Database
     {
         // Agreagar funcion para obtener el dia en español lunes
         // $diaSemana
-        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3";
+        $sql = "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3";
         $result = $this->conn->query($sql);
 
         $datos = array();
@@ -72,7 +72,7 @@ class Database
     {
         // Agreagar funcion para obtener el dia en español lunes
         // $diaSemana
-        $sql =  "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3";
+        $sql = "SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3";
         $result = $this->conn->query($sql);
 
         $datos = array();
@@ -128,7 +128,7 @@ class Database
     public function loginVerificarCorreo($contrasenia, $correo)
     {
 
-        $sql="SELECT * FROM usuarios WHERE contrasenia = '$contrasenia' AND correo = '$correo';";
+        $sql = "SELECT * FROM usuarios WHERE contrasenia = '$contrasenia' AND correo = '$correo';";
         $result_verificar = $this->conn->query($sql);
 
         if ($result_verificar->num_rows > 0) {
@@ -136,6 +136,99 @@ class Database
         } else {
             return false;
         }
+    }
+
+    public function getTodoMenu()
+    {
+        $sql = "SELECT ID,NOMBRE,PRECIO FROM MENU";
+        $result = $this->conn->query($sql);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+    }
+    public function eliminarPlato($id)
+    {
+
+        $sql = "DELETE FROM MENU WHERE ID = '$id'";
+
+        if ($this->conn->query($sql) === TRUE) {
+            return true; // Éxito al elimnar plato
+        } else {
+            return false; // Error al elimnar plato
+        }
+    }
+    public function getPlatillo($id)
+    {
+        $sql = "SELECT * FROM MENU WHERE id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+
+        // Verificar si se encontraron resultados
+        if ($stmt->num_rows > 0) {
+            // Obtener los datos del elemento como un arreglo asociativo
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            // Devolver los datos del elemento
+            return $row;
+        } else {
+            // No se encontraron datos del elemento
+            return null;
+        }
+    }
+    public function getProductById($id)
+    {
+        $query = "SELECT nombre, precio FROM MENU WHERE ID = $id";
+        $result = $this->conn->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+
+
+    public function getMenu()
+    {
+        $sql = "SELECT * FROM MENU";
+        $result = $this->conn->query($sql);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+
+    }
+
+    public function getReseniasmamalonas()
+    {
+        $sql = "SELECT NOMBRE, OCUPACION, RESENA FROM RESENIAS";
+        $result = $this->conn->query($sql);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
     }
 
     public function cerrarConexion()

@@ -114,8 +114,7 @@ $(document).ready(function () {
         var correo = $('input[name=correo]').val();
         var contrasenia = $('input[name=contrasenia]').val();
 
-        alert(correo)
-        alert(contrasenia)
+      
         // Enviar los datos del formulario al servidor usando Ajax
         $.ajax({
             url: '../php/verificar_login.php', // Ruta al archivo PHP que manejará la solicitud
@@ -126,7 +125,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response === 'ok') {
-                    window.location.href = '../pages/menu.html'; // Redirigir a la página deseada
+                    window.location.href = '../pages/menu.php'; // Redirigir a la página deseada
                 } else if(response === 'admin'){
                     window.location.href = '#'; // Redirigir a la página deseada
                 } else {

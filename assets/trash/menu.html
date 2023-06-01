@@ -1,0 +1,184 @@
+<!--
+
+<?php
+require_once '../php/coneccionBD.php';
+
+?>
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="auto">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="../css/StyleMenu.css">
+
+</head>
+
+<body class="dark-mode">
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">La mesa de los sabores</a></li>
+          <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
+          <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
+          <li><button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Carrito</button>
+          </li>
+        </ul>
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small dark-mode">
+            <li><a class="dropdown-item" href="#">Cuenta</a></li>
+            <li><a class="dropdown-item" href="#">Pedidos</a></li>
+            <li><a class="dropdown-item" href="#">Reseñas</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">¡Bienvenidos a La Mesa de los Sabores!</h1>
+          <p class="lead ">Nuestro menú ha sido creado con pasión y dedicación, combinando los
+            mejores ingredientes frescos de temporada con técnicas culinarias innovadoras. Desde platos clásicos
+            reinventados hasta creaciones contemporáneas, cada bocado es un homenaje a la diversidad y la calidad.</p>
+          <p>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-fluid">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+
+        <!--
+    
+  <?php
+  $database = new Database();
+  $menuItems = $database->getMenu();
+
+  if (!empty($menuItems)) {
+    foreach ($menuItems as $item) {
+      $id = $item["ID"];
+      $url = $item["URL"];
+      $nombre = $item["NOMBRE"];
+      $descripcion = $item["DESCRIPCION"];
+      $precio = $item["PRECIO"];
+      // Generar la tarjeta de menú con los datos obtenidos
+      echo '<div class="col-6 col-md-4 col-lg-3">
+        <div class="card" style="width: 20rem;">
+          <div class="crop-img">
+            <img src="' . $url . '" alt="' . $nombre . '" class="rounded-0 card-img-top">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">' . $nombre . '</h5>
+            <p class="card-text">' . $descripcion . '</p>
+            <div class="quantity">
+              <button class="btn-cantidad" data-id="' . $id . '" data-operacion="disminuir">
+                <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M20 12L4 12"></path>
+                </svg>
+              </button>
+              <label id="cantidad-' . $id . '">1</label>
+              <button class="btn-cantidad" data-id="' . $id . '" data-operacion="aumentar">
+                <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M12 4V20M20 12H4"></path>
+                </svg>
+              </button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-comprar" data-id="' . $id . '">Comprar</button>
+            <small class="">' . $precio . '</small>
+          </div>
+          <input type="hidden" name="platillo_id" value="' . $id . '">
+        </div>
+      </div>';
+    }
+  } else {
+    echo "No se encontraron elementos en el menú.";
+  }
+  ?>
+  
+-->
+      </div>
+
+      <div class="offcanvas offcanvas-start bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-light" id="offcanvasWithBothOptionsLabel">Carrito de compras</h5>
+          <button type="button" class="btn-close text-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul id="lista-compras" class="text-light">
+            <!-- Lista de compras vacía -->
+          </ul>
+        </div>
+      </div>
+
+      <style>
+        .modal-dark .modal-content {
+          background-color: #333;
+          color: #fff;
+        }
+
+        .modal-dark .modal-header,
+        .modal-dark .modal-footer {
+          border-color: #555;
+        }
+
+        .modal-dark .btn-secondary {
+          color: #fff;
+          background-color: #555;
+          border-color: #555;
+        }
+      </style>
+
+
+
+      <div class="modal fade modal-dark" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalExitoLabel">Platillo Agregado a carrito</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="../js/scripMenuUsuario.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
