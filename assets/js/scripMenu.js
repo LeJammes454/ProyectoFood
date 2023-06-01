@@ -80,44 +80,44 @@ function addToCartTable(id, quantity) {
         fetch(`../php/get_product.php?id=${id}`)
             .then(response => response.json())
             .then(product => {
-                 // Crear una nueva fila en la tabla con los datos del producto
-                 const newRow = document.createElement('tr');
-                 newRow.setAttribute('data-id', id);
- 
-                 const nameCell = document.createElement('td');
-                 nameCell.textContent = product.nombre;
- 
-                 const priceCell = document.createElement('td');
-                 priceCell.textContent = product.precio;
-                 priceCell.classList.add('price');
- 
-                 const quantityCell = document.createElement('td');
-                 const newQuantity = quantity;
-                 quantityCell.textContent = newQuantity;
-                 quantityCell.classList.add('quantity');
- 
-                 const totalPriceCell = document.createElement('td');
-                 const price = parseFloat(product.precio);
-                 const totalPrice = newQuantity * price;
-                 totalPriceCell.textContent = totalPrice.toFixed(2);
-                 totalPriceCell.classList.add('total-price');
- 
-                 const actionsCell = document.createElement('td');
-                 const deleteButton = document.createElement('button');
-                 deleteButton.textContent = 'Eliminar';
-                 deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
-                 deleteButton.addEventListener('click', () => {
-                     deleteCartItem(newRow);
-                 });
-                 actionsCell.appendChild(deleteButton);
- 
-                 newRow.appendChild(nameCell);
-                 newRow.appendChild(priceCell);
-                 newRow.appendChild(quantityCell);
-                 newRow.appendChild(totalPriceCell);
-                 newRow.appendChild(actionsCell);
-                 cartTableBody.appendChild(newRow);
-             });
+                // Crear una nueva fila en la tabla con los datos del producto
+                const newRow = document.createElement('tr');
+                newRow.setAttribute('data-id', id);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = product.nombre;
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = product.precio;
+                priceCell.classList.add('price');
+
+                const quantityCell = document.createElement('td');
+                const newQuantity = quantity;
+                quantityCell.textContent = newQuantity;
+                quantityCell.classList.add('quantity');
+
+                const totalPriceCell = document.createElement('td');
+                const price = parseFloat(product.precio);
+                const totalPrice = newQuantity * price;
+                totalPriceCell.textContent = totalPrice.toFixed(2);
+                totalPriceCell.classList.add('total-price');
+
+                const actionsCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+                deleteButton.addEventListener('click', () => {
+                    deleteCartItem(newRow);
+                });
+                actionsCell.appendChild(deleteButton);
+
+                newRow.appendChild(nameCell);
+                newRow.appendChild(priceCell);
+                newRow.appendChild(quantityCell);
+                newRow.appendChild(totalPriceCell);
+                newRow.appendChild(actionsCell);
+                cartTableBody.appendChild(newRow);
+            });
     }
     // Función para eliminar un elemento del carrito
     function deleteCartItem(row) {
@@ -131,11 +131,11 @@ const realizarPedidoBtn = document.getElementById('realizarPedidoBtn');
 
 // Agrega un evento de clic al botón
 realizarPedidoBtn.addEventListener('click', () => {
-  // Obtén los datos de la tabla
-  const cartTable = document.getElementById('cartTableBody');
-  const rowData = Array.from(cartTable.rows).map(row => Array.from(row.cells).map(cell => cell.textContent));
+    // Obtén los datos de la tabla
+    const cartTable = document.getElementById('cartTableBody');
+    const rowData = Array.from(cartTable.rows).map(row => Array.from(row.cells).map(cell => cell.textContent));
 
-  // Realiza la redirección a otra página con los datos
-  const url = 'nueva_pagina.php'; // Reemplaza "nueva_pagina.php" por la URL de tu página de destino
-  window.location.href = `${url}?data=${JSON.stringify(rowData)}`;
+    // Realiza la redirección a otra página con los datos
+    const url = '../pages/confirmarCompra.php'; // Reemplaza "nueva_pagina.php" por la URL de tu página de destino
+    window.location.href = `${url}?data=${JSON.stringify(rowData)}`;
 });

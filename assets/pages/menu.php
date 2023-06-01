@@ -2,7 +2,6 @@
 require_once '../php/coneccionBD.php';
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,10 +32,9 @@ require_once '../php/coneccionBD.php';
                             href="../../index.php">Inicio</a></li>
                 </ul>
                 <form class="d-flex">
-                    <button class="btn" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    <button type="button" class="btn btn-outline-success"   data-bs-toggle="modal" data-bs-target="#carritomodal">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
 
                 </form>
@@ -149,7 +147,7 @@ require_once '../php/coneccionBD.php';
     </footer>
 
     <!-- Modal de Carrito de Compras -->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="carritomodal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -171,13 +169,12 @@ require_once '../php/coneccionBD.php';
                     </table>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="realizarPedidoBtn">Realizar Pedido</button>
-            </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="realizarPedidoBtn">Realizar Pedido</button>
+                </div>
             </div>
         </div>
     </div>
-
 
     <!-- Modal de "Platillo agregado" -->
     <div class="modal fade" id="addedModal" tabindex="-1" aria-labelledby="addedModalLabel" aria-hidden="true">
@@ -191,8 +188,7 @@ require_once '../php/coneccionBD.php';
     </div>
 
 
-
-
+    </div>
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

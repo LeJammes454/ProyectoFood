@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -9,68 +13,18 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="../css/StyleCC.css">
 </head>
 
-<body class="dark-mode">
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
-            aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
-            <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
-                <use href="#circle-half"></use>
-            </svg>
-            <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-            <li>
-                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
-                    aria-pressed="false">
-                    <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                        <use href="#sun-fill"></use>
-                    </svg>
-                    Light
-                    <svg class="bi ms-auto d-none" width="1em" height="1em">
-                        <use href="#check2"></use>
-                    </svg>
-                </button>
-            </li>
-            <li>
-                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
-                    aria-pressed="false">
-                    <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                        <use href="#moon-stars-fill"></use>
-                    </svg>
-                    Dark
-                    <svg class="bi ms-auto d-none" width="1em" height="1em">
-                        <use href="#check2"></use>
-                    </svg>
-                </button>
-            </li>
-            <li>
-                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
-                    aria-pressed="true">
-                    <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                        <use href="#circle-half"></use>
-                    </svg>
-                    Auto
-                    <svg class="bi ms-auto d-none" width="1em" height="1em">
-                        <use href="#check2"></use>
-                    </svg>
-                </button>
-            </li>
-        </ul>
-    </div>
-
-
-    <div class="container">
+<body class="bg-dark">
+    <div class="container bg-dark " data-bs-theme="dark">
         <main>
             <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="" alt="" width="72"
-                    height="57">
-                <h2>Verificar Compra</h2>
-                <p class="lead">Queremos expresar nuestro más sincero agradecimiento por confiar en 
-                    nosotros y realizar tu compra en nuestra página web. Valoramos enormemente tu 
-                    apoyo y nos complace haber tenido la oportunidad de brindarte una experiencia 
+                <img class="d-block mx-auto mb-4" src="" alt="" width="72" height="57">
+                <h2 class="text-light">Verificar Compra</h2>
+                <p class="lead text-light">Queremos expresar nuestro más sincero agradecimiento por confiar en
+                    nosotros y realizar tu compra en nuestra página web. Valoramos enormemente tu
+                    apoyo y nos complace haber tenido la oportunidad de brindarte una experiencia
                     gastronómica única desde la comodidad de tu hogar.</p>
             </div>
 
@@ -78,56 +32,73 @@
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Tu carrito</span>
-                        <span class="badge bg-primary rounded-pill">3</span>
+                        <span class="badge bg-primary rounded-pill">
+                            <?php echo count($data); ?>
+                        </span>
                     </h4>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Product name</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$12</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Second product</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Third item</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$5</span>
-                        </li>
+                        <?php
+                        if (isset($_GET['data'])) {
+                            $data = json_decode($_GET['data'], true);
+
+                            echo '<ul class="list-group">';
+                            $totalSum = 0; // Variable para almacenar la suma de los precios totales
+                            foreach ($data as $row) {
+                                $nombre = $row[0];
+                                $precio = $row[1];
+                                $cantidad = $row[2];
+                                $precioTotal = $row[3];
+                                $totalSum += $precioTotal;
+                                echo '<li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">' . $nombre . '</h6>
+                            <span class="text-muted">Cantidad: ' . $cantidad . '</span>
+                        </div>
+                        <span class="text-body-secondary">' . $precioTotal . '</span>
+                    </li>';
+                            }
+                            echo '</ul>';
+
+                            // Calcula el nuevo total aplicando el descuento
+                            $nuevoTotal = $totalSum - ($totalSum * $descuento);
+                        }
+                        ?>
                         <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
                             <div class="text-success">
-                                <h6 class="my-0">Codigo de promocion</h6>
-                                <small>EXAMPLECODE</small>
+                                <h6 class="my-0">Código de promoción</h6>
+                                <small id="codigoDescuento"></small>
                             </div>
-                            <span class="text-success">−$5</span>
+                            <span class="text-success" id="descuento">%0</span>
                         </li>
+
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (MX)</span>
-                            <strong>$20</strong>
+                            <strong id="preciochido">
+                                <?php echo '$' . $nuevoTotal; ?>
+                            </strong>
                         </li>
+
+
+
                     </ul>
 
-                    <form class="card p-2">
+                    <form class="card p-2" id="cuponForm">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Codigo de promocion">
+                            <input type="text" class="form-control" id="cuponInput" placeholder="Código de promoción">
                             <button type="submit" class="btn btn-secondary">Reclamar</button>
+                            <div id="cuponMessage"></div>
                         </div>
                     </form>
+
                 </div>
-                <div class="col-md-7 col-lg-8">
-                    <h4 class="mb-3">Direccion de envio</h4>
+
+                <div class="col-md-7 col-lg-8 ">
+                    <h4 class="mb-3 text-light">Direccion de envio</h4>
                     <form class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">Nombre</label>
+                                <label for="firstName" class="form-label text-light">Nombre</label>
                                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Su nombre es requerido.
@@ -135,7 +106,7 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Apellido</label>
+                                <label for="lastName" class="form-label text-light">Apellido</label>
                                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Su apellido es requerido.
@@ -143,8 +114,8 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="address" class="form-label">Direccion</label>
-                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                <label for="address" class="form-label text-light">Direccion</label>
+                                <input type="text" class="form-control " id="address" placeholder="1234 Main St"
                                     required>
                                 <div class="invalid-feedback">
                                     Porfavor ingrese su direccion para enviar el pedido.
@@ -152,13 +123,13 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="address2" class="form-label">Direccion 2 <span
+                                <label for="address2" class="form-label text-light">Direccion 2 <span
                                         class="text-body-secondary">(Optional)</span></label>
                                 <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                             </div>
 
                             <div class="col-md-3">
-                                <label for="zip" class="form-label">Codigo postal</label>
+                                <label for="zip" class="form-label text-light">Codigo postal</label>
                                 <input type="text" class="form-control" id="zip" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Codigo postal requerido
@@ -168,23 +139,23 @@
 
                         <hr class="my-4">
 
-                        <h4 class="mb-3">Metodo de pago</h4>
+                        <h4 class="mb-3 text-light">Metodo de pago</h4>
 
                         <div class="my-3">
                             <div class="form-check">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked
+                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input " checked
                                     required>
-                                <label class="form-check-label" for="credit">Tarjeta de credito</label>
+                                <label class="form-check-label text-light" for="credit">Tarjeta de credito</label>
                             </div>
                             <div class="form-check">
                                 <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="debit">Tarjeta de debito</label>
+                                <label class="form-check-label text-light" for="debit">Tarjeta de debito</label>
                             </div>
                         </div>
 
                         <div class="row gy-3">
                             <div class="col-md-6">
-                                <label for="cc-name" class="form-label">Nombre en la tarjeta</label>
+                                <label for="cc-name" class="form-label text-light">Nombre en la tarjeta</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required>
                                 <small class="text-body-secondary">Nombre completo como se muestra en la tarjeta</small>
                                 <div class="invalid-feedback">
@@ -193,7 +164,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="cc-number" class="form-label">Número de Tarjeta</label>
+                                <label for="cc-number" class="text-light form-label">Número de Tarjeta</label>
                                 <input type="text" class="form-control" id="cc-number" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Credit card number is required
@@ -201,7 +172,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-expiration" class="form-label">Vencimiento</label>
+                                <label for="cc-expiration" class="form-label text-light">Vencimiento</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Expiration date required
@@ -209,7 +180,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-cvv" class="form-label">CVV</label>
+                                <label for="cc-cvv" class="form-label text-light">CVV</label>
                                 <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Security code required
@@ -219,7 +190,11 @@
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Confirmar Compra</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" id="compramamalona">
+                            Confirmar Compra
+                        </button>
+
                     </form>
                 </div>
             </div>
@@ -236,6 +211,29 @@
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade bg-opacity-50" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog bg-opacity-50">
+            <div id="page">
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div id="container">
+                    <div id="ring"></div>
+                    <div id="ring"></div>
+                    <div id="ring"></div>
+                    <div id="ring"></div>
+                    <div id="h3">loading</div>
+                </div>
+            </div>
+            <div>
+                <p class="text-light">Gracias por su compra.</p>
+                <p class="text-light">Redirigiendo al menu</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/confirmarCompra.js"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
