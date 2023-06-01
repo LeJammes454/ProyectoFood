@@ -1,6 +1,17 @@
 <?php
 require_once '../php/coneccionBD.php';
 
+// Incluir la función session_start() al comienzo del archivo
+session_start();
+
+// Verificar si la variable de sesión está establecida
+if (!isset($_SESSION['correo'])) {
+    // La sesión no está activa, redirigir al formulario de inicio de sesión o a otra página
+    header("Location: ../../index.php");
+    exit(); // Detener la ejecución del resto del código
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,15 +58,15 @@ require_once '../php/coneccionBD.php';
                     <ul class="dropdown-menu text-small dark-mode">
                         <li><a class="dropdown-item" href="#">Cuenta</a></li>
                         <li><a class="dropdown-item" href="#">Pedidos</a></li>
-                        <li><a class="dropdown-item" href="#">Reseñas</a></li>
                         <li>
-        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#historialModal">Reseñas</a>
-    </li>
- 
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#historialModal">Reseñas</a>
+                        </li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        <li><a class="dropdown-item" href="../php/cerrar_sesion.php">Sign out</a></li>
                     </ul>
                 </div>
             </div>
@@ -180,7 +191,7 @@ require_once '../php/coneccionBD.php';
         </div>
     </div>
 
-    <!-- Modal de Carrito de Compras -->
+    <!-- Modal de historial -->
     <div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -196,7 +207,7 @@ require_once '../php/coneccionBD.php';
                                 <th>Precio</th>
                                 <th>Cantidad</th>
                                 <th>Precio Total</th>
-                                <th>Acciones</th>
+                                <th>Fecha</th>
                             </tr>
                         </thead>
                         <tbody id="cartTableBody"></tbody>
@@ -204,7 +215,6 @@ require_once '../php/coneccionBD.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="realizarPedidoBtn">Realizar Pedido</button>
                 </div>
             </div>
         </div>

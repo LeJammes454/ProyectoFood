@@ -1,5 +1,15 @@
 <?php
+require_once '../php/coneccionBD.php';
 
+// Incluir la función session_start() al comienzo del archivo
+session_start();
+
+// Verificar si la variable de sesión está establecida
+if (!isset($_SESSION['correo'])) {
+    // La sesión no está activa, redirigir al formulario de inicio de sesión o a otra página
+    header("Location: ../../index.php");
+    exit(); // Detener la ejecución del resto del código
+}
 ?>
 
 <!doctype html>
@@ -32,15 +42,20 @@
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Tu carrito</span>
-                        <span class="badge bg-primary rounded-pill">
-                            <?php echo count($data); ?>
-                        </span>
-                    </h4>
-                    <ul class="list-group mb-3">
+
                         <?php
                         if (isset($_GET['data'])) {
                             $data = json_decode($_GET['data'], true);
+                            $tamano = sizeof($data);
 
+                            echo ' <span class="badge bg-primary rounded-pill">
+                                    ' . $tamano . '
+                                   </span>'
+                                ?>
+                        </h4>
+                        <ul class="list-group mb-3">
+
+                            <?php
                             echo '<ul class="list-group">';
                             $totalSum = 0; // Variable para almacenar la suma de los precios totales
                             foreach ($data as $row) {
@@ -63,6 +78,7 @@
                             $nuevoTotal = $totalSum - ($totalSum * $descuento);
                         }
                         ?>
+                        <!--  Codigo para mostrar el descuento
                         <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
                             <div class="text-success">
                                 <h6 class="my-0">Código de promoción</h6>
@@ -70,7 +86,7 @@
                             </div>
                             <span class="text-success" id="descuento">%0</span>
                         </li>
-
+-->
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (MX)</span>
@@ -82,7 +98,7 @@
 
 
                     </ul>
-
+                    <!-- Codigo para aplicar el descuento 
                     <form class="card p-2" id="cuponForm">
                         <div class="input-group">
                             <input type="text" class="form-control" id="cuponInput" placeholder="Código de promoción">
@@ -90,6 +106,7 @@
                             <div id="cuponMessage"></div>
                         </div>
                     </form>
+                    -->
 
                 </div>
 
@@ -157,9 +174,9 @@
                             <div class="col-md-6">
                                 <label for="cc-name" class="form-label text-light">Nombre en la tarjeta</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                                <small class="text-body-secondary">Nombre completo como se muestra en la tarjeta</small>
+                                <small class="text-body-secondary"></small>
                                 <div class="invalid-feedback">
-                                    Name on card is required
+                                    Nombre del titular de la tarjeta requerido
                                 </div>
                             </div>
 
@@ -167,7 +184,7 @@
                                 <label for="cc-number" class="text-light form-label">Número de Tarjeta</label>
                                 <input type="text" class="form-control" id="cc-number" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Credit card number is required
+                                    Se necesitan 16 dijitos
                                 </div>
                             </div>
 
@@ -175,7 +192,7 @@
                                 <label for="cc-expiration" class="form-label text-light">Vencimiento</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Expiration date required
+                                    Fecha de expiracion requerido
                                 </div>
                             </div>
 
@@ -183,17 +200,18 @@
                                 <label for="cc-cvv" class="form-label text-light">CVV</label>
                                 <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Security code required
+                                    Codigo de seguiridad requerido
                                 </div>
                             </div>
                         </div>
 
                         <hr class="my-4">
 
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop" id="compramamalona">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#"
+                            id="compramamalona">
                             Confirmar Compra
                         </button>
+
 
                     </form>
                 </div>
