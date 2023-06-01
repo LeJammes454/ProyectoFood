@@ -28,11 +28,11 @@ require_once '../php/coneccionBD.php';
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page"
-                            href="../../index.php">Inicio</a></li>
+
                 </ul>
                 <form class="d-flex">
-                    <button type="button" class="btn btn-outline-success"   data-bs-toggle="modal" data-bs-target="#carritomodal">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#carritomodal">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                     </button>
@@ -48,6 +48,10 @@ require_once '../php/coneccionBD.php';
                         <li><a class="dropdown-item" href="#">Cuenta</a></li>
                         <li><a class="dropdown-item" href="#">Pedidos</a></li>
                         <li><a class="dropdown-item" href="#">Reseñas</a></li>
+                        <li>
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#historialModal">Reseñas</a>
+    </li>
+ 
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -135,7 +139,7 @@ require_once '../php/coneccionBD.php';
         </div>
     </section>
     <!-- Footer-->
-    <footer class="py-3 my-4">
+    <footer class="py-3 my-4 ">
         <div class=" text-center border-top wow fadeIn">
             <p class="text-center text-white text-muted small">&copy;
                 <script>
@@ -176,6 +180,36 @@ require_once '../php/coneccionBD.php';
         </div>
     </div>
 
+    <!-- Modal de Carrito de Compras -->
+    <div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historialModalLabel">Carrito de Compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Precio Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="realizarPedidoBtn">Realizar Pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de "Platillo agregado" -->
     <div class="modal fade" id="addedModal" tabindex="-1" aria-labelledby="addedModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -187,8 +221,6 @@ require_once '../php/coneccionBD.php';
         </div>
     </div>
 
-
-    </div>
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

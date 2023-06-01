@@ -227,8 +227,8 @@
                 </div>
             </div>
             <div>
-                <p class="text-light">Gracias por su compra.</p>
-                <p class="text-light">Redirigiendo al menu</p>
+                <h2 class="text-light">Gracias por su compra.</h2>
+                <h2 class="text-light">Redirigiendo al menu</h2>
             </div>
         </div>
     </div>
