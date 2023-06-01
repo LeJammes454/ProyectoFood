@@ -52,10 +52,7 @@
                                 <input type="text" placeholder="Apellido Paterno" name="apellido_paterno">
                                 <input type="text" placeholder="Apellido Materno" name="apellido_materno">
                                 <input type="text" placeholder="Numero Telefono" name="numero_telefonico">
-                            </div>
-                            <div class="col">
-                                <input type="text" placeholder="Direccion" name="direccion">
-                                <input type="text" placeholder="Codigo Postal" name="codigo_postal">
+                                <input type="text" placeholder="Ocupacion" name="ocupacion">
                                 <input type="text" placeholder="Correo Electronico" name="email">
                                 <input type="password" placeholder="Contraseña" name="password">
                             </div>

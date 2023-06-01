@@ -292,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });*/
 
+    
 
   // Código para formatear los números de la tarjeta
   var ccNumberInput = document.getElementById("cc-number");

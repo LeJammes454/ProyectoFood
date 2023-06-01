@@ -75,8 +75,7 @@ $(document).ready(function () {
         var apellido_materno = $('input[name=apellido_materno]').val();
         var contrasenia = $('input[name=password]').val();
         var numero_telefonico = $('input[name=numero_telefonico]').val();
-        var direccion = $('input[name=direccion]').val();
-        var codigo_postal = $('input[name=codigo_postal]').val();
+        var ocupacion = $('input[name=ocupacion]').val();
         var correo = $('input[name=email]').val();
         // Enviar los datos del formulario al servidor usando Ajax
         $.ajax({
@@ -88,13 +87,12 @@ $(document).ready(function () {
                 apellido_materno: apellido_materno,
                 contrasenia: contrasenia,
                 numero_telefonico: numero_telefonico,
-                direccion: direccion,
-                codigo_postal: codigo_postal,
+                ocupacion: ocupacion,
                 correo: correo
             },
             success: function (response) {
                 if (response === 'ok') {
-                    alert('Registro Valido');
+                    alert('Bienvenido');
                 } else {
                     alert('Error al registrar usuario');
                 }

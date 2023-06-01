@@ -12,8 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido_materno = $_POST['apellido_materno'];
     $contrasenia = $_POST['contrasenia'];
     $numero_telefonico = $_POST['numero_telefonico'];
-    $direccion = $_POST['direccion'];
-    $codigo_postal = $_POST['codigo_postal'];
+    $ocupacion = $_POST['ocupacion'];
     $correo = $_POST['correo'];
     $contrasenia = hash('sha512',$contrasenia);
     //$hashed_password = password_hash($contrasenia, PASSWORD_DEFAULT);
@@ -26,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $apellido_materno,
         $contrasenia,
         $numero_telefonico,
-        $direccion,
-        $codigo_postal,
+        $ocupacion,
         $correo
     )) {
         echo "ok";

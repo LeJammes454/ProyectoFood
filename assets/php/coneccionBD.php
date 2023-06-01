@@ -102,8 +102,7 @@ class Database
         $apellido_materno,
         $contrasenia,
         $numero_telefonico,
-        $direccion,
-        $codigo_postal,
+        $ocupacion,
         $correo
     ) {
         // Verificar si el correo ya existe en la base de datos
@@ -114,8 +113,8 @@ class Database
             return false; // Error al registrar usuario
         } else {
             // Preparar y ejecutar la consulta SQL para insertar los datos en la tabla
-            $sql = "INSERT INTO USUARIOS (NOMBRE, APELLIDOM, APELLIDOP, CONTRASENIA, TELEFONO, DIRECCION, CODIGOPOSTAL, CORREO)
-        VALUES ('$nombre', '$apellido_materno', '$apellido_paterno', '$contrasenia', '$numero_telefonico', '$direccion', '$codigo_postal', '$correo')";
+            $sql = "INSERT INTO USUARIOS (NOMBRE, APELLIDOM, APELLIDOP, CONTRASENIA, TELEFONO, OCUPACION, CORREO)
+        VALUES ('$nombre', '$apellido_materno', '$apellido_paterno', '$contrasenia', '$numero_telefonico', '$ocupacion', '$correo')";
 
             if ($this->conn->query($sql) === TRUE) {
                 return true; // Éxito al registrar usuario
@@ -215,9 +214,24 @@ class Database
 
     }
 
+    public function ejecutarQuery($query)
+    {
+        $result = $this->conn->query($query);
+
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+    }
+
     public function getReseniasmamalonas()
     {
-        $sql = "SELECT NOMBRE, OCUPACION, RESENA FROM RESENIAS";
+        $sql = "SELECT NOMBRE, OCUPACION, RESENA FROM RESENIAS ORDER BY FECHA DESC";
         $result = $this->conn->query($sql);
 
         $datos = array();

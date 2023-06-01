@@ -207,10 +207,31 @@ if (!isset($_SESSION['correo'])) {
 
                         <hr class="my-4">
 
+                        <!-- Agrega un ID único al botón -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#"
-                            id="compramamalona">
-                            Confirmar Compra
-                        </button>
+                            id="compramamalona" onclick="enviarDatos()">Confirmar Compra</button>
+
+                        <script>
+                            function enviarDatos() {
+                                // Obtén los datos que deseas enviar en el formato adecuado
+                                var data = JSON.stringify(<?php echo json_encode($data); ?>);
+
+                                // Realiza una petición AJAX a tu archivo PHP
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState === 4 && this.status === 200) {
+                                        // Maneja la respuesta del servidor si es necesario
+                                        alert(this.responseText);
+                                    }
+                                };
+                                xhttp.open("POST", "../php/historialPedidos.php", true);
+                                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                xhttp.send("data=" + encodeURIComponent(data));
+                            }
+                        </script>
+
+
+
 
 
                     </form>

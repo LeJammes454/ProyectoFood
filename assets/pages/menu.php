@@ -56,17 +56,22 @@ if (!isset($_SESSION['correo'])) {
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small dark-mode">
-                        <li><a class="dropdown-item" href="#">Cuenta</a></li>
-                        <li><a class="dropdown-item" href="#">Pedidos</a></li>
+                        <li>
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#cuentaModal">Cuenta</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#pedidosModal">Pedidos</a>
+                        </li>
                         <li>
                             <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                 data-bs-target="#historialModal">Reseñas</a>
                         </li>
-
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../php/cerrar_sesion.php">Sign out</a></li>
+                        <li><a class="dropdown-item" href="../php/cerrar_sesion.php">Cerrar Sesion</a></li>
                     </ul>
                 </div>
             </div>
@@ -190,28 +195,140 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </div>
     </div>
+    <?php
 
-    <!-- Modal de historial -->
+    $correoUsuario = $_SESSION['correo'];
+    $database = new Database();
+    $menuItems = $database->getMenu();
+
+    if (!empty($menuItems)) {
+        foreach ($menuItems as $item) {
+            $id = $item["ID"];
+            $url = $item["URL"];
+            $nombre = $item["NOMBRE"];
+            $descripcion = $item["DESCRIPCION"];
+            $precio = $item["PRECIO"];
+        }
+    }
+
+    ?>
+    <!-- Modal de resenias -->
     <div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="historialModalLabel">Carrito de Compras</h5>
+                    <h5 class="modal-title" id="historialModalLabel">Reseñas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Precio Total</th>
-                                <th>Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cartTableBody"></tbody>
-                    </table>
+                    <div class="container">
+                        <?php
+
+                        // Conexión a la base de datos (ejemplo)
+                        $servername = "localhost"; // Cambia esto si tu servidor MySQL está en otro lugar
+                        $username = "root"; // Reemplaza "tu_usuario" por el nombre de usuario de MySQL
+                        $password = "jaime0454"; // Reemplaza "tu_contraseña" por la contraseña de MySQL
+                        $dbname = "MESASABORES"; // Reemplaza "nombre_de_la_base_de_datos" por el nombre de la base de datos
+                        
+
+                        // Crear la conexión
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+
+                        // Verificar la conexión
+                        if ($conn->connect_error) {
+                            die("La conexión falló: " . $conn->connect_error);
+                        }
+
+                        // Obtener el correo de búsqueda
+                        $correo = $_SESSION['correo'];
+
+                        // Construir la consulta SQL
+                        $sql = "SELECT nombre, apellidom, apellidop, ocupacion FROM USUARIOS WHERE correo = '$correo'";
+
+                        // Ejecutar la consulta
+                        $result = $conn->query($sql);
+
+                        // Verificar si se encontraron resultados
+                        if ($result->num_rows == 1) {
+                            // Obtener el registro
+                            $row = $result->fetch_assoc();
+
+                            // Acceder a los datos
+                            $nombre = $row["nombre"];
+                            $apellidom = $row["apellidom"];
+                            $apellidop = $row["apellidop"];
+                            $ocupacion = $row["ocupacion"];
+
+                        } else {
+                            echo "No se encontró el registro o se encontraron múltiples registros.";
+                        }
+
+                        echo '<form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputEmail" class="form-label">Correo</label>
+                                    <input type="text" readonly class="form-control" id="inputEmail"
+                                        value="' . $correoUsuario . '">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputName" class="form-label">Nombre</label>
+                                    <input type="text" readonly class="form-control" id="inputName"
+                                        value="' . $nombre . " " . $apellidop . " " . $apellidom . '">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputOcupacion" class="form-label">Ocupacion</label>
+                                <input type="text" readonly class="form-control" id="ocupacion"
+                                    value="' . $ocupacion . '">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="inputResenia" class="form-label">Reseña</label>
+                                <textarea class="form-control" id="inputResenia" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+
+                        </form>';
+                        // Construir la consulta SQL
+                        $sql = "SELECT fecha, resena FROM RESENIAS WHERE correo = '$correo'";
+
+                        // Ejecutar la consulta
+                        $result = $conn->query($sql);
+
+                        // Verificar si se encontraron resultados
+                        if ($result->num_rows > 0) {
+                            // Construir las filas de la tabla HTML
+                            $tableRows = "";
+                            while ($row = $result->fetch_assoc()) {
+                                $fecha = $row["fecha"];
+                                $resena = $row["resena"];
+
+                                // Añadir la fila a la tabla HTML
+                                $tableRows .= "<tr><td>$fecha</td><td>$resena</td></tr>";
+                            }
+                        } else {
+                            $tableRows = "<tr><td colspan='2'>No se encontraron reseñas.</td></tr>";
+                        }
+
+                        // Cerrar la conexión
+                        $conn->close();
+                        ?>
+                        <h2>Reseñas</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Reseña</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php echo $tableRows; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -220,6 +337,47 @@ if (!isset($_SESSION['correo'])) {
         </div>
     </div>
 
+    <!-- Modal de cuenta -->
+    <div class="modal fade" id="cuentaModal" tabindex="-1" aria-labelledby="cuentaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cuentaModalLabel">Cuenta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de pedidos -->
+    <div class="modal fade" id="pedidosModal" tabindex="-1" aria-labelledby="pedidosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pedidosModalLabel">Pedidos Realizados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <!-- Modal de "Platillo agregado" -->
     <div class="modal fade" id="addedModal" tabindex="-1" aria-labelledby="addedModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -230,7 +388,6 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </div>
     </div>
-
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

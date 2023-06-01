@@ -31,7 +31,7 @@ TIPO ENUM('COMIDA','JUGO'),
 URL VARCHAR(300) NOT NULL
 );
 
-drop table usuarios;
+drop table USUARIOS;
 
 CREATE TABLE USUARIOS (
     ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -40,60 +40,45 @@ CREATE TABLE USUARIOS (
     APELLIDOP VARCHAR(50) NOT NULL,
     CONTRASENIA VARCHAR(256) NOT NULL,
     TELEFONO CHAR(10) NOT NULL,
-    DIRECCION VARCHAR(100) NOT NULL,
-    CODIGOPOSTAL CHAR(5) NOT NULL,
-    CORREO VARCHAR(100) NOT NULL
+    CORREO VARCHAR(100) NOT NULL,
+    OCUPACION VARCHAR(100) NOT NULL
 );
-
 CREATE TABLE RESENIAS (
     ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     NOMBRE VARCHAR(50) NOT NULL,
     OCUPACION VARCHAR(50) NOT NULL,
     RESENA TEXT NOT NULL,
-    CORREO VARCHAR(100) NOT NULL
+    CORREO VARCHAR(100) NOT NULL,
+    FECHA DATE NOT NULL
 );
 
 drop table resenias;
 
-
-CREATE TABLE rol (
-    ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    USUARIO_CORREO VARCHAR(100) NOT NULL,
-    ROL VARCHAR(50) NOT NULL DEFAULT 'usuario',
-    FOREIGN KEY (USUARIO_CORREO) REFERENCES USUARIOS(CORREO)
+CREATE TABLE CUPONES(
+ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+CODIGO VARCHAR(30) NOT NULL,
+DESCUENTO VARCHAR(5) NOT NULL,
+USOS INT NOT NULL
 );
-INSERT INTO rol (USUARIO_CORREO, ROL)
-VALUES ('c@gmail.com', 'admin');
+
 
 
 select * from usuarios where contrasenia = '$2y$10$RMuYrtEvvofPMFPb5rKoEuQfW9kIjA7GwY715g7LrokqWdb4WDfKy' and correo = 'leclet.jl@gmail.com';
 select * from usuarios;
+
+SELECT nombre, apellidom, apellidop, ocupacion FROM USUARIOS WHERE correo = 'leclet.jl@gmail.com';
 select * from rol;
-select * from menu;
-describe menu;
+describe usuarios;
+drop table  rol;
 
 select * from RESENIAS;
+SELECT * FROM RESENIAS ORDER BY FECHA DESC;
+
 
 
 /*------------------------------- DATOS FICTICIOS PARA TABLAS-------------------*/
-
-INSERT INTO MENU (NOMBRE,DESCRIPCION,PRECIO,URL) VALUES
-('Tacos al Pastor','','00.00', 'https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg'),
-('Chiles Rellenos','','00.00', 'https://i.pinimg.com/originals/d2/bc/26/d2bc260efda31c07533d1d76a51534ee.jpg'),
-('Enchiladas Verdes','','00.00', 'https://i.pinimg.com/originals/d2/bc/26/d2bc260efda31c07533d1d76a51534ee.jpg'),
-('Mole Poblano','','00.00', 'https://www.seriouseats.com/thmb/TOQrlZhSHX6NwXXOT7vAIY7pMLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2012__10__20121024-227412-mole-poblano-8aa343f2cb384508834ed888a4b65df2.jpg'),
-('Tamales Oaxaqueños','','00.00', 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/68D64DAE-9605-42AC-BDCF-328A509EC776/Derivates/7AC0E9FD-F0DA-410B-9D78-19D3C3BEA1F3.jpg'),
-('Pozole','','00.00', 'https://editorialtelevisa.brightspotcdn.com/dims4/default/6c34d26/2147483647/strip/true/crop/440x440+63+0/resize/1000x1000!/format/webp/quality/90/?url=https%3A%2F%2Fk2-prod-editorial-televisa.s3.amazonaws.com%2Fbrightspot%2Fwp-content%2Fuploads%2F2018%2F03%2FSTPozole-rojo-de-cerdo.jpg'),
-('Chiles en Nogada','','00.00', 'https://media.istockphoto.com/id/491811072/es/foto/chiles-en-nogada-comida-mexicana.jpg?s=612x612&w=is&k=20&c=wFRoQmLkubqojygfRmCkyBiAxaegn_5Jn7zi2FXP3Xg='),
-('Cochinita Pibil','','00.00', 'https://i2.wp.com/portandfin.com/wp-content/uploads/2015/01/CochinitaPibil7.jpg'),
-('Tacos de Carnitas','','00.00', 'https://okdiario.com/img/2022/04/30/tacos.jpg'),
-('Quesadillas','','00.00', 'https://www.cocinista.es/download/bancorecursos/recetas/receta-quesadilla.jpg'),
-('Tortas Ahogadas','','00.00', 'https://dorastable.com/wp-content/uploads/2017/04/torta-ahogada-3-1030x682.jpg'),
-('Tostadas de Tinga','','00.00', 'https://www.mylatinatable.com/wp-content/uploads/2014/02/foto-h-750x500.jpg.webp'),
-('Sopes','','00.00', 'https://th.bing.com/th/id/OIP.nIyzeNF1iZjzl0qA74i3EgHaE7?pid=ImgDet&rs=1'),
-('Chilaquiles','','00.00', 'https://images.pexels.com/photos/10305696/pexels-photo-10305696.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-('Flautas','','00.00', 'https://www.maricruzavalos.com/wp-content/uploads/2019/09/chicken-flautas-recipe-1024x1024.jpg');
-
+INSERT INTO USUARIOS (NOMBRE, APELLIDOM, APELLIDOP, CONTRASENIA, TELEFONO, OCUPACION, CORREO)
+        VALUES ('Jaime', 'Angeles', 'Leon', 'dasdasd', '1234567891', 'Ing. Software', 'lecs');
 INSERT INTO OFERTACOMIDA (NOMBRE, DESCRIPCION, PRECIO, DIA, TIPO, URL)
 VALUES
     ('Hamburguesa clásica', 'Deliciosa hamburguesa con carne de res, queso, lechuga y tomate', '99.00', 'LUNES', 'COMIDA', 'https://images.unsplash.com/photo-1591336277697-cdae7e42dead?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1077&q=80'),
@@ -111,7 +96,38 @@ VALUES
 select * from menu;
     
     SELECT * FROM OFERTACOMIDA WHERE TIPO = 'jugo' AND DIA = 'lunes' LIMIT 3;
+
     
+    INSERT INTO MENU (NOMBRE, DESCRIPCION, PRECIO, URL) VALUES
+('Tacos al Pastor', 'Deliciosos tacos tradicionales de pastor marinado con especias y adobo, servidos en tortillas de maíz.', 10.99, 'https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg'),
+('Chiles Rellenos', 'Chiles poblanos rellenos de una mezcla de carne y/o queso, cubiertos con salsa de tomate y gratinados con queso.', 12.99, 'https://i.pinimg.com/originals/d2/bc/26/d2bc260efda31c07533d1d76a51534ee.jpg'),
+('Enchiladas Verdes', 'Tortillas de maíz rellenas de pollo deshebrado, bañadas en salsa verde y adornadas con crema y queso.', 9.99, 'https://i.pinimg.com/originals/d2/bc/26/d2bc260efda31c07533d1d76a51534ee.jpg'),
+('Mole Poblano', 'Platillo tradicional mexicano hecho a base de chiles, especias y chocolate, servido con pollo y acompañado de arroz y tortillas.', 14.99, 'https://www.seriouseats.com/thmb/TOQrlZhSHX6NwXXOT7vAIY7pMLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2012__10__20121024-227412-mole-poblano-8aa343f2cb384508834ed888a4b65df2.jpg'),
+('Tamales Oaxaqueños', 'Deliciosos tamales hechos con masa de maíz, rellenos de pollo o cerdo y envueltos en hojas de plátano.', 8.99, 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/68D64DAE-9605-42AC-BDCF-328A509EC776/Derivates/7AC0E9FD-F0DA-410B-9D78-19D3C3BEA1F3.jpg'),
+('Pozole', 'Sopa tradicional mexicana hecha a base de maíz cacahuazintle, carne de cerdo, chile y condimentos, acompañada de lechuga, rábano y cebolla.', 11.99, 'https://editorialtelevisa.brightspotcdn.com/dims4/default/6c34d26/2147483647/strip/true/crop/440x440+63+0/resize/1000x1000!/format/webp/quality/90/?url=https%3A%2F%2Fk2-prod-editorial-televisa.s3.amazonaws.com%2Fbrightspot%2Fwp-content%2Fuploads%2F2018%2F03%2FSTPozole-rojo-de-cerdo.jpg'),
+('Chiles en Nogada', 'Platillo típico mexicano compuesto por chiles poblanos rellenos de picadillo y cubiertos con una salsa de nuez y granada.', 15.99, 'https://media.istockphoto.com/id/491811072/es/foto/chiles-en-nogada-comida-mexicana.jpg?s=612x612&w=is&k=20&c=wFRoQmLkubqojygfRmCkyBiAxaegn_5Jn7zi2FXP3Xg='),
+('Cochinita Pibil', 'Platillo de la cocina yucateca hecho con carne de cerdo adobada en achiote y cocida a fuego lento, acompañada de cebolla encurtida y tortillas.', 13.99, 'https://i2.wp.com/portandfin.com/wp-content/uploads/2015/01/CochinitaPibil7.jpg'),
+('Tacos de Carnitas', 'Tacos de carne de cerdo cocida lentamente en su propia grasa hasta quedar dorada y crujiente, servidos con cebolla y cilantro.', 10.99, 'https://okdiario.com/img/2022/04/30/tacos.jpg'),
+('Quesadillas', 'Tortillas de maíz rellenas de queso derretido y acompañadas de salsa y guacamole.', 7.99, 'https://www.cocinista.es/download/bancorecursos/recetas/receta-quesadilla.jpg'),
+('Tortas Ahogadas', 'Torta de birote rellena de carnitas de cerdo y bañada en una salsa de chile de árbol, acompañada de cebolla y limón.', 9.99, 'https://dorastable.com/wp-content/uploads/2017/04/torta-ahogada-3-1030x682.jpg'),
+('Tostadas de Tinga', 'Tostadas de tortilla crujiente cubiertas con pollo deshebrado en salsa de chipotle, acompañadas de crema, queso y lechuga.', 8.99, 'https://www.mylatinatable.com/wp-content/uploads/2014/02/foto-h-750x500.jpg.webp'),
+('Sopes', 'Tortillas de maíz con los bordes levantados, cubiertas con frijoles, carne, queso, crema y salsa.', 9.99, 'https://th.bing.com/th/id/OIP.nIyzeNF1iZjzl0qA74i3EgHaE7?pid=ImgDet&rs=1'),
+('Chilaquiles', 'Tortillas de maíz cortadas y fritas, bañadas en salsa verde o roja, acompañadas de crema, queso y cebolla.', 8.99, 'https://images.pexels.com/photos/10305696/pexels-photo-10305696.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+('Flautas', 'Tortillas de maíz enrolladas y rellenas de carne de pollo o res, fritas hasta quedar crujientes, acompañadas de crema y guacamole.', 9.99, 'https://www.maricruzavalos.com/wp-content/uploads/2019/09/chicken-flautas-recipe-1024x1024.jpg');
+
+
+INSERT INTO CUPONES (CODIGO, DESCUENTO, USOS) VALUES
+('CYBER2023', '10%', 5),
+('HALLOW2023', '15%', 4),
+('CODEXMAS23', '20%', 2),
+('GEEKNYE23', '25%', 9),
+('SPRINGBYTE', '30%', 10),
+('SUMMERBUGS', '35%', 5),
+('DATAWEEN23', '40%', 3),
+('TECHPATRIOT', '45%', 2),
+('THANKSDATA', '50%', 2),
+('COMPHOLI23', '55%', 1);
+
 INSERT INTO OFERTACOMIDA (NOMBRE, DESCRIPCION, PRECIO, DIA, URL)
 VALUES
     ('Sandwich de pollo', 'Delicioso sandwich de pollo a la parrilla con lechuga, tomate y mayonesa', '6.99', 'MIERCOLES', 'https://ejemplo.com/sandwich-pollo'),
@@ -149,36 +165,17 @@ VALUES
     ('Té helado', 'Refrescante té helado con limón y hojas de menta', '2.99', 'DOMINGO', 'https://ejemplo.com/te-helado');
     
     
-    INSERT INTO RESENIAS (NOMBRE, OCUPACION, RESENA, CORREO) VALUES
-('John Doe', 'Ingeniero', '¡Excelente servicio y comida deliciosa! La Mesa de los Sabores es mi lugar favorito para disfrutar de una cena especial.', 'johndoe@example.com'),
-('Jane Smith', 'Estudiante', 'El ambiente acogedor y la atención amable hacen que La Mesa de los Sabores sea perfecto para reuniones con amigos.', 'janesmith@example.com'),
-('Michael Johnson', 'Abogado', 'Recomiendo probar el plato estrella de La Mesa de los Sabores: el salmón a la parrilla con salsa de cítricos. ¡Una delicia!', 'michaeljohnson@example.com'),
-('Sarah Thompson', 'Diseñadora', 'La presentación de los platos en La Mesa de los Sabores es impecable. Cada bocado es una experiencia visual y gustativa.', 'sarahthompson@example.com'),
-('David Wilson', 'Empresario', 'La atención al detalle en La Mesa de los Sabores es impresionante. Desde la decoración hasta los sabores, todo es excepcional.', 'davidwilson@example.com'),
-('Emily Davis', 'Médico', 'Si buscas opciones vegetarianas, La Mesa de los Sabores tiene una amplia variedad de platos deliciosos para elegir.', 'emilydavis@example.com'),
-('Daniel Martinez', 'Estudiante', 'La Mesa de los Sabores ofrece una experiencia gastronómica única. Cada plato es una explosión de sabores y creatividad.', 'danielmartinez@example.com'),
-('Olivia Anderson', 'Contadora', 'Los postres en La Mesa de los Sabores son exquisitos. No te pierdas el pastel de chocolate con salsa de frutos rojos.', 'oliviaanderson@example.com'),
-('Christopher Taylor', 'Ingeniero', 'El servicio en La Mesa de los Sabores es impecable. El personal es atento y siempre están dispuestos a hacer recomendaciones.', 'christophertaylor@example.com'),
-('Sophia Thomas', 'Escritora', 'La carta de vinos en La Mesa de los Sabores es impresionante. Hay opciones para todos los gustos y precios.', 'sophiathomas@example.com'),
-('Matthew Roberts', 'Estudiante', 'La Mesa de los Sabores ofrece un menú degustación que es una experiencia culinaria extraordinaria. ¡No te lo pierdas!', 'matthewroberts@example.com'),
-('Ava Clark', 'Periodista', 'El chef de La Mesa de los Sabores es un verdadero artista culinario. Cada plato es una obra maestra de sabores y presentación.', 'avaclark@example.com'),
-('James Brown', 'Arquitecto', 'La Mesa de los Sabores ofrece un ambiente sofisticado y elegante. Es el lugar perfecto para celebrar ocasiones especiales.', 'jamesbrown@example.com'),
-('Mia Hill', 'Estudiante', 'La Mesa de los Sabores se ha convertido en mi restaurante favorito. Siempre encuentro nuevos sabores y combinaciones deliciosas.', 'miahill@example.com'),
-('Benjamin Walker', 'Abogado', 'La Mesa de los Sabores ofrece un servicio de primera clase. Cada visita es una experiencia culinaria inolvidable.', 'benjaminwalker@example.com'),
-('Ella Lewis', 'Emprendedora', 'El menú en La Mesa de los Sabores es variado y lleno de opciones deliciosas. Siempre encuentro algo que me encanta.', 'ellalewis@example.com'),
-('William Turner', 'Estudiante', 'La Mesa de los Sabores ofrece un ambiente cálido y acogedor. Es el lugar perfecto para disfrutar de una comida relajada.', 'williamturner@example.com'),
-('Grace Scott', 'Psicóloga', 'La Mesa de los Sabores es el lugar ideal para degustar platos tradicionales con un toque moderno. ¡Una delicia para los sentidos!', 'gracescott@example.com'),
-('Henry Green', 'Estudiante', 'Recomiendo probar el menú de degustación en La Mesa de los Sabores. Cada plato es una sorpresa y una explosión de sabores.', 'henrygreen@example.com'),
-('Lily Baker', 'Ingeniera', 'El equipo de La Mesa de los Sabores se esfuerza por brindar una experiencia culinaria excepcional. Cada visita es un placer.', 'lilybaker@example.com'),
-('Joseph White', 'Estudiante', 'La Mesa de los Sabores ofrece una amplia selección de platos internacionales. Es como viajar por el mundo a través de los sabores.', 'josephwhite@example.com'),
-('Chloe Young', 'Diseñadora', 'La Mesa de los Sabores se destaca por su creatividad en la presentación de los platos. Cada plato es una obra de arte.', 'chloeyoung@example.com'),
-('Alexander Hall', 'Estudiante', 'El menú vegetariano en La Mesa de los Sabores es excepcional. Las combinaciones de sabores y texturas son sorprendentes.', 'alexanderhall@example.com'),
-('Victoria King', 'Artista', 'La Mesa de los Sabores es el lugar perfecto para una cena romántica. El ambiente íntimo y los sabores seductores lo hacen inolvidable.', 'victoriaking@example.com'),
-('Daniel Harris', 'Estudiante', 'La Mesa de los Sabores es un lugar donde la comida se convierte en arte. Cada plato es una explosión de sabor y creatividad.', 'danielharris@example.com'),
-('Elizabeth Murphy', 'Abogada', 'La Mesa de los Sabores ofrece una experiencia gastronómica de primer nivel. Los ingredientes frescos y la atención al detalle hacen la diferencia.', 'elizabethmurphy@example.com'),
-('Jameson Lee', 'Estudiante', 'El menú infantil en La Mesa de los Sabores es variado y delicioso. Mis hijos siempre disfrutan de su comida aquí.', 'jamesonlee@example.com'),
-('Natalie Walker', 'Estudiante', 'La Mesa de los Sabores ofrece un ambiente relajado y acogedor. Es el lugar perfecto para disfrutar de una cena tranquila.', 'nataliewalker@example.com'),
-('Samuel Baker', 'Empresario', 'La Mesa de los Sabores es sinónimo de excelencia culinaria. Cada plato es una explosión de sabores y una experiencia única.', 'samuelbaker@example.com'),
-('Gabrielle Reed', 'Estudiante', 'La Mesa de los Sabores es el lugar perfecto para disfrutar de un brunch. Los platos son frescos, abundantes y deliciosos.', 'gabriellereed@example.com'),
-('Christopher Cooper', 'Escritor', 'La Mesa de los Sabores es un oasis para los amantes de la comida. Cada visita es un viaje de sabores y texturas.', 'christophercooper@example.com'),
-('Isabella Martin', 'Estudiante', 'La Mesa de los Sabores ofrece una experiencia gastronómica inigualable. Cada plato es una obra maestra de sabor y presentación.', 'isabellamartin@example.com');
+INSERT INTO RESENIAS (NOMBRE, OCUPACION, RESENA, CORREO, FECHA) VALUES
+('John Doe', 'Ingeniero', '¡Excelente servicio y comida deliciosa! La Mesa de los Sabores es mi lugar favorito para disfrutar de una cena especial.', 'johndoe@example.com', '2023-01-01'),
+('Jane Smith', 'Estudiante', 'El ambiente acogedor y la atención amable hacen que La Mesa de los Sabores sea perfecto para reuniones con amigos.', 'janesmith@example.com', '2023-01-15'),
+('Michael Johnson', 'Abogado', 'Recomiendo probar el plato estrella de La Mesa de los Sabores: el salmón a la parrilla con salsa de cítricos. ¡Una delicia!', 'michaeljohnson@example.com', '2023-02-01'),
+('Sarah Thompson', 'Diseñadora', 'La presentación de los platos en La Mesa de los Sabores es impecable. Cada bocado es una experiencia visual y gustativa.', 'sarahthompson@example.com', '2023-02-15'),
+('David Wilson', 'Empresario', 'La atención al detalle en La Mesa de los Sabores es impresionante. Desde la decoración hasta los sabores, todo es excepcional.', 'davidwilson@example.com', '2023-03-01'),
+('Emily Davis', 'Médico', 'Si buscas opciones vegetarianas, La Mesa de los Sabores tiene una amplia variedad de platos deliciosos para elegir.', 'emilydavis@example.com', '2023-03-15'),
+('Daniel Martinez', 'Estudiante', 'La Mesa de los Sabores ofrece una experiencia gastronómica única. Cada plato es una explosión de sabores y creatividad.', 'danielmartinez@example.com', '2023-04-01'),
+('Olivia Anderson', 'Contadora', 'Los postres en La Mesa de los Sabores son exquisitos. No te pierdas el pastel de chocolate con salsa de frutos rojos.', 'oliviaanderson@example.com', '2023-04-15'),
+('Christopher Taylor', 'Ingeniero', 'El servicio en La Mesa de los Sabores es impecable. El personal es atento y siempre están dispuestos a hacer recomendaciones.', 'christophertaylor@example.com', '2023-05-01'),
+('Sophia Thomas', 'Escritora', 'La carta de vinos en La Mesa de los Sabores es impresionante. Hay opciones para todos los gustos y precios.', 'sophiathomas@example.com', '2023-05-15'),
+('Matthew Roberts', 'Estudiante', 'La Mesa de los Sabores ofrece un menú degustación que es una experiencia culinaria extraordinaria. ¡No te lo pierdas!', 'matthewroberts@example.com', '2023-05-30');
+
+
