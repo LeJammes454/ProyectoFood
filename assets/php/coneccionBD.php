@@ -244,6 +244,17 @@ class Database
 
         return $datos;
     }
+    public function InsertarResenia($resena, $correo)
+    {
+        // Llamar al procedimiento almacenado
+        $sql = "CALL InsertarResenia('$correo', '$resena')";
+
+        if ($this->conn->query($sql) === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function cerrarConexion()
     {

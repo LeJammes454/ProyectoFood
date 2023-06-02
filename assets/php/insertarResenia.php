@@ -1,36 +1,22 @@
 <?php
-// Verificar si el formulario ha sido enviado
+require_once 'coneccionBD.php';
+session_start();
+
+$db = new Database();
+
+$correo = $_SESSION["correo"];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conexión a la base de datos (ejemplo)
-    // Conexión a la base de datos (ejemplo)
-    require_once 'configuracionBD.php';
+//$db->loginVerificarCorreo($contrasenia,$correo)
+    $resenia = $_POST['resenia'];
 
-    // Crear la conexión
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Verificar la conexión
-    if ($conn->connect_error) {
-        die("La conexión falló: " . $conn->connect_error);
-    }
-    // Obtener los datos del formulario
-    $correo = $_SESSION['correo'];
-    $nombre = $_POST["inputName"];
-    $ocupacion = $_POST["inputOcupacion"];
-    $resenia = $_POST["inputResenia"];
-    $fechaActual = date('Y-m-d');
-
-    // Insertar los datos en la tabla "RESENIAS"
-    $sql = "INSERT INTO RESENIAS (nombre, ocupacion, resena,correo, fecha)
-            VALUES ('$nombre','$ocupacion','$resenia','$correo','$fechaActual')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Reseña agregada exitosamente.";
+      if ($db->InsertarResenia($resenia ,$correo)) {
+        echo "Se inserto correctamente la reseña, gracias";
     } else {
-        echo "Error al agregar la reseña: " . $conn->error;
+        echo "error al intentar ingresar la reseña";
     }
-
-    // Cerrar la conexión
-    $conn->close();
 }
-?>
 
+// Cerrar la conexión
+$db->cerrarConexion();
+?>

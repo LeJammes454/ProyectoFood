@@ -98,7 +98,8 @@ if (!isset($_SESSION['correo'])) {
                 <?php
                 $database = new Database();
                 $menuItems = $database->getMenu();
-
+                
+                
                 if (!empty($menuItems)) {
                     foreach ($menuItems as $item) {
                         $id = $item["ID"];
@@ -213,8 +214,8 @@ if (!isset($_SESSION['correo'])) {
 
     ?>
     <!-- Modal de resenias -->
-    <div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade bg-dark" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-dark">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="historialModalLabel">Reseñas</h5>
@@ -223,14 +224,8 @@ if (!isset($_SESSION['correo'])) {
                 <div class="modal-body">
                     <div class="container">
                         <?php
-
-                        // Conexión a la base de datos (ejemplo)
-                        $servername = "localhost"; // Cambia esto si tu servidor MySQL está en otro lugar
-                        $username = "root"; // Reemplaza "tu_usuario" por el nombre de usuario de MySQL
-                        $password = "jaime0454"; // Reemplaza "tu_contraseña" por la contraseña de MySQL
-                        $dbname = "MESASABORES"; // Reemplaza "nombre_de_la_base_de_datos" por el nombre de la base de datos
                         
-
+                        $database = new Database();
                         // Crear la conexión
                         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -262,9 +257,10 @@ if (!isset($_SESSION['correo'])) {
                         } else {
                             echo "No se encontró el registro o se encontraron múltiples registros.";
                         }
-
-                        echo '<form>
+                        ?>
+                        <form class="form_resenia" id="formResenia">
                             <div class="row">
+                                <?php echo '
                                 <div class="col-md-6 mb-3">
                                     <label for="inputEmail" class="form-label">Correo</label>
                                     <input type="text" readonly class="form-control" id="inputEmail"
@@ -280,16 +276,17 @@ if (!isset($_SESSION['correo'])) {
                                 <label for="inputOcupacion" class="form-label">Ocupacion</label>
                                 <input type="text" readonly class="form-control" id="ocupacion"
                                     value="' . $ocupacion . '">
-                            </div>
+                            </div>' ?>
 
-                            <div class="mb-3">
-                                <label for="inputResenia" class="form-label">Reseña</label>
-                                <textarea class="form-control" id="inputResenia" rows="3"></textarea>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="resenia" class="form-label">Reseña</label>
+                                    <textarea class="form-control" id="resenia" name="resenia" rows="3"></textarea>
+                                </div>
 
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-
-                        </form>';
+                                <button type="button" class="btn btn-primary" onclick="enviarResenia()">Enviar
+                                    Reseña</button>
+                        </form>
+                        <?php
                         // Construir la consulta SQL
                         $sql = "SELECT fecha, resena FROM RESENIAS WHERE correo = '$correo'";
 
@@ -327,8 +324,26 @@ if (!isset($_SESSION['correo'])) {
                             </tbody>
                         </table>
                     </div>
+                    <script>
+                        function enviarResenia() {
+                            var resenia = $("#resenia").val();
 
+                            $.ajax({
+                                url: "../php/insertarResenia.php",
+                                method: "POST",
+                                data: { resenia: resenia },
+                                success: function (response) {
+                                    // Manejar la respuesta del servidor si es necesario
+                                    alert(response);
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    // Manejar el error en caso de que la petición no se haya realizado correctamente
+                                }
+                            });
+                        }
 
+                    </script>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -377,7 +392,7 @@ if (!isset($_SESSION['correo'])) {
         </div>
     </div>
 
-    
+
     <!-- Modal de "Platillo agregado" -->
     <div class="modal fade" id="addedModal" tabindex="-1" aria-labelledby="addedModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -393,6 +408,9 @@ if (!isset($_SESSION['correo'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scrip JS-->
     <script src="../js/scripMenu.js"></script>
