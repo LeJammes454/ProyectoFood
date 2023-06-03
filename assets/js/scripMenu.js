@@ -3,6 +3,8 @@ const decreaseButtons = document.querySelectorAll(".decreaseButton");
 const increaseButtons = document.querySelectorAll(".increaseButton");
 const quantityValues = document.querySelectorAll(".quantity");
 
+
+
 // Agregar eventos de clic a los botones
 decreaseButtons.forEach((button, index) => {
   button.addEventListener("click", () => {
@@ -61,6 +63,7 @@ function showAddedModal() {
 
 // Función para agregar el producto a la tabla del modal
 function addToCartTable(id, quantity) {
+
   const cartTableBody = document.getElementById("cartTableBody");
   const existingProductRow = cartTableBody.querySelector(`tr[data-id="${id}"]`);
 
@@ -139,3 +142,4 @@ realizarPedidoBtn.addEventListener("click", () => {
   const url = "../pages/confirmarCompra.php"; // Reemplaza "nueva_pagina.php" por la URL de tu página de destino
   window.location.href = `${url}?data=${JSON.stringify(rowData)}`;
 });
+

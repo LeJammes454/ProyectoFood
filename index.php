@@ -1,6 +1,9 @@
 <?php
 require_once 'assets/php/coneccionBD.php';
+session_start();
 
+// Verificar si la sesión está iniciada
+$sesionIniciada = isset($_SESSION["correo"]);
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +49,7 @@ require_once 'assets/php/coneccionBD.php';
                 </li>
             </ul>
             <a class="navbar-brand m-auto" href="#">
-                <img src="assets/imgs/logo.svg" class="brand-img" alt="">
+                <img src="assets/imgs/logomamalon.png" class="brand-img" alt="">
                 <span class="brand-txt">LA MESA DE LOS SABORES</span>
             </a>
             <ul class="navbar-nav">
@@ -60,7 +63,22 @@ require_once 'assets/php/coneccionBD.php';
                     <a class="nav-link" href="#contact">Contactanos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="assets/pages/loginRegister.php" class="btn btn-outline-warning ml-xl-4">Iniciar Sesion</a>
+                    <?php
+                    if ($sesionIniciada) {
+                        echo ' <a href="assets/pages/menu.php" class="nav-link">Menu</a>';
+                    } ?>
+                </li>
+
+                <li class="nav-item">
+                    <?php
+
+                    if ($sesionIniciada) {
+                        echo ' <a href="assets/php/cerrar_sesion.php" class="btn btn-outline-warning ml-xl-4">Cerrar Sesion</a>';
+                    } else {
+                        echo ' <a href="assets/pages/loginRegister.php" class="btn btn-outline-warning ml-xl-4">Iniciar Sesion</a>';
+                    }
+
+                    ?>
                 </li>
             </ul>
         </div>
@@ -286,33 +304,41 @@ require_once 'assets/php/coneccionBD.php';
                 <?php
                 $database = new Database();
                 $datos = $database->getReseniasmamalonas();
-                // Muestra los grupos de reseñas en los carruseles
                 $grupo = 0;
                 $grupoSize = 3;
+
                 foreach (array_chunk($datos, $grupoSize) as $grupoReseñas) {
                     echo '<div class="carousel-item ' . ($grupo === 0 ? 'active' : '') . '">';
                     echo '<div class="row mt-3 mb-5">';
+
                     foreach ($grupoReseñas as $resena) {
                         $nombre = $resena["NOMBRE"];
                         $ocupacion = $resena["OCUPACION"];
                         $textoResena = $resena["RESENA"];
+                        $visible = $resena["VISIBLE"];
 
-                        echo '<div class="col-md-4 my-3 my-md-0">';
-                        echo '<div class="testmonial-card">';
-                        echo '<h3 class="testmonial-title">' . $nombre . '</h3>';
-                        echo '<h6 class="testmonial-subtitle">' . $ocupacion . '</h6>';
-                        echo '<div class="testmonial-body">';
-                        echo '<p>' . $textoResena . '</p>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
+                        // Validar si la reseña está visible
+                        if ($visible) {
+                            echo '<div class="col-md-4 my-3 my-md-0">';
+                            echo '<div class="testmonial-card">';
+                            echo '<h3 class="testmonial-title">' . $nombre . '</h3>';
+                            echo '<h6 class="testmonial-subtitle">' . $ocupacion . '</h6>';
+                            echo '<div class="testmonial-body">';
+                            echo '<p>' . $textoResena . '</p>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
                     }
+
                     echo '</div>';
                     echo '</div>';
                     $grupo++;
                 }
+
                 $database->cerrarConexion();
                 ?>
+
 
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">

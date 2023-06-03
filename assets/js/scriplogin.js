@@ -92,7 +92,8 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response === 'ok') {
-                    alert('Bienvenido');
+                    alert('Usuario agragado correctamente');
+                    location.reload();
                 } else {
                     alert('Error al registrar usuario');
                 }

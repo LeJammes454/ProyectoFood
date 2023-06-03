@@ -31,7 +31,7 @@ TIPO ENUM('COMIDA','JUGO'),
 URL VARCHAR(300) NOT NULL
 );
 
-drop table USUARIOS;
+select * from USUARIOS;
 
 CREATE TABLE USUARIOS (
     ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -41,18 +41,63 @@ CREATE TABLE USUARIOS (
     CONTRASENIA VARCHAR(256) NOT NULL,
     TELEFONO CHAR(10) NOT NULL,
     CORREO VARCHAR(100) NOT NULL,
-    OCUPACION VARCHAR(100) NOT NULL
+    OCUPACION VARCHAR(100) NOT NULL,
+    ROL ENUM('usuario', 'admin') DEFAULT 'usuario'
 );
+
+select * from resenias;
+
+CREATE TABLE COMPRAS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    nombre VARCHAR(100),
+    precio DECIMAL(10,2),
+    cantidad INT,
+    precio_total DECIMAL(10,2),
+    fechaHora VARCHAR(18),
+    FOREIGN KEY (usuario_id) REFERENCES USUARIOS (ID)
+);
+
+drop table resenias;
+SELECT COMPRAS.*, USUARIOS.NOMBRE, USUARIOS.APELLIDOP FROM COMPRAS INNER JOIN USUARIOS ON COMPRAS.usuario_id = USUARIOS.ID;
+       
 CREATE TABLE RESENIAS (
     ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     NOMBRE VARCHAR(50) NOT NULL,
     OCUPACION VARCHAR(50) NOT NULL,
     RESENA TEXT NOT NULL,
     CORREO VARCHAR(100) NOT NULL,
-    FECHA DATE NOT NULL
+    FECHA DATE NOT NULL,
+    VISIBLE BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-drop table resenias;
+select * from usuarios;
+
+
+
+UPDATE USUARIOS
+SET ROL = 'admin'
+WHERE CORREO = 'leclet.jl@gmail.com' and id >0;
+
+describe resenias;
+select * from menu;
+insert into resenias(nombre,ocupacion,resena,correo,fecha) values ('Jaime','Reportero','Chido','juanito@gmail.com','2023-07-10');
+select nombre,ocupacion from usuarios where correo = 'leclet.jl@gmail.com';
+
+
+SELECT c.nombre, c.precio, c.cantidad, c.precio_total, c.fechaHora
+FROM COMPRAS c
+JOIN USUARIOS u ON c.usuario_id = u.ID
+WHERE u.CORREO = 'leclet.jl@gmail.com';
+
+CALL InsertarCompra('leclet.jl@gmail.com', 'lechuga', 10.50, 2, 21.00);
+select * from usuarios;
+
+CALL InsertarResenia('leclet.jl@gmail.com', 'pinocho no sabia que era de madera');
+
+CALL ObtenerCompras('xboxjaime3@gmail.com');
+
+select * from resenias where id = 18;
 
 CREATE TABLE CUPONES(
 ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -178,4 +223,55 @@ INSERT INTO RESENIAS (NOMBRE, OCUPACION, RESENA, CORREO, FECHA) VALUES
 ('Sophia Thomas', 'Escritora', 'La carta de vinos en La Mesa de los Sabores es impresionante. Hay opciones para todos los gustos y precios.', 'sophiathomas@example.com', '2023-05-15'),
 ('Matthew Roberts', 'Estudiante', 'La Mesa de los Sabores ofrece un menú degustación que es una experiencia culinaria extraordinaria. ¡No te lo pierdas!', 'matthewroberts@example.com', '2023-05-30');
 
+
+
+DELIMITER //
+
+CREATE PROCEDURE InsertarResenia(IN p_correo VARCHAR(100), IN p_resena TEXT)
+BEGIN
+    DECLARE v_nombre VARCHAR(50);
+    DECLARE v_ocupacion VARCHAR(50);
+    DECLARE v_fecha DATE;
+
+    -- Obtener el nombre y ocupación del usuario
+    SELECT NOMBRE, OCUPACION INTO v_nombre, v_ocupacion
+    FROM USUARIOS
+    WHERE CORREO = p_correo;
+
+    -- Obtener la fecha actual
+    SET v_fecha = CURDATE();
+
+    -- Insertar la reseña en la tabla RESENIAS
+    INSERT INTO RESENIAS (NOMBRE, OCUPACION, RESENA, CORREO, FECHA)
+    VALUES (v_nombre, v_ocupacion, p_resena, p_correo, v_fecha);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertarCompra(
+    IN p_correo VARCHAR(100),
+    IN p_nombre VARCHAR(100),
+    IN p_precio DECIMAL(10,2),
+    IN p_cantidad INT,
+    IN p_precio_total DECIMAL(10,2),
+    IN p_fechahora VARCHAR(18)
+    
+)
+BEGIN
+    DECLARE v_usuario_id INT;
+
+    -- Recuperar el ID del usuario mediante el correo
+    SELECT ID INTO v_usuario_id FROM USUARIOS WHERE CORREO = p_correo;
+
+    -- Insertar en la tabla COMPRAS
+    INSERT INTO COMPRAS (usuario_id, nombre, precio, cantidad, precio_total,fechaHora)
+    VALUES (v_usuario_id, p_nombre, p_precio, p_cantidad, p_precio_total,p_fechahora);
+    
+END //
+
+DELIMITER ;
+
+DELIMITER //
 

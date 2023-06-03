@@ -137,6 +137,23 @@ class Database
         }
     }
 
+    public function loginCorreo($correo)
+    {
+
+        $sql = "SELECT ROL FROM USUARIOS WHERE CORREO = '$correo'";;
+        $result = $this->conn->query($sql);
+        $datos = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $datos[] = $row;
+            }
+        }
+
+        return $datos;
+    }
+
+
     public function getTodoMenu()
     {
         $sql = "SELECT ID,NOMBRE,PRECIO FROM MENU";
@@ -231,7 +248,7 @@ class Database
 
     public function getReseniasmamalonas()
     {
-        $sql = "SELECT NOMBRE, OCUPACION, RESENA FROM RESENIAS ORDER BY FECHA DESC";
+        $sql = "SELECT NOMBRE, OCUPACION, RESENA,VISIBLE FROM RESENIAS ORDER BY FECHA DESC";
         $result = $this->conn->query($sql);
 
         $datos = array();

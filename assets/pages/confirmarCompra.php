@@ -27,10 +27,59 @@ if (!isset($_SESSION['correo'])) {
 </head>
 
 <body class="bg-dark">
+    <div class="position-fixed">
+        <div>
+            <a href="#" id="modalMamalon" class="btn btn-outline-danger" data-toggle="modal">Regresar</a>
+        </div>
+        <script>
+
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+            // Obtener referencia al botón flotante
+            var floatingButton = document.getElementById('modalMamalon');
+
+            // Agregar un evento de clic al botón flotante
+            floatingButton.addEventListener('click', function () {
+                // Obtener referencia al modal
+                var modal = document.getElementById('regresoModal')
+
+                // Mostrar el modal utilizando Bootstrap
+                var modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+            });
+
+        </script>
+    </div>
+    <div class="container">
+        <!-- Coloca el botón dentro de un contenedor -->
+
+    </div>
     <div class="container bg-dark " data-bs-theme="dark">
+        <!-- Modal -->
+        <div class="modal fade" id="regresoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-white">Cancelar Compra</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-white">
+                        ¿Seguro que quieres regresar?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Continuar con la
+                            compra</button>
+                        <button type="button" class="btn btn-outline-danger" id="botonback">Si, quiero regresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <main>
             <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="" alt="" width="72" height="57">
+                <img src="../imgs/logomamalon.png" class="brand-img" alt="">
                 <h2 class="text-light">Verificar Compra</h2>
                 <p class="lead text-light">Queremos expresar nuestro más sincero agradecimiento por confiar en
                     nosotros y realizar tu compra en nuestra página web. Valoramos enormemente tu
@@ -168,9 +217,14 @@ if (!isset($_SESSION['correo'])) {
                                 <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
                                 <label class="form-check-label text-light" for="debit">Tarjeta de debito</label>
                             </div>
+                            <div class="form-check">
+                                <input id="efectivo" name="paymentMethod" type="radio" class="form-check-input"
+                                    required>
+                                <label class="form-check-label text-light" for="efectivo">Efectivo</label>
+                            </div>
                         </div>
 
-                        <div class="row gy-3">
+                        <div class="row gy-3" id="inputstarjeta">
                             <div class="col-md-6">
                                 <label for="cc-name" class="form-label text-light">Nombre en la tarjeta</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required>
@@ -209,25 +263,118 @@ if (!isset($_SESSION['correo'])) {
 
                         <!-- Agrega un ID único al botón -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#"
-                            id="compramamalona" onclick="enviarDatos()">Confirmar Compra</button>
+                            id="compramamalona">Confirmar Compra</button>
 
                         <script>
-                            function enviarDatos() {
-                                // Obtén los datos que deseas enviar en el formato adecuado
-                                var data = JSON.stringify(<?php echo json_encode($data); ?>);
+                            document.addEventListener("DOMContentLoaded", function () {
+                                window.addEventListener('pageshow', function (event) {
+                                    var source = event.persisted || (typeof event.performance != 'undefined' && event.performance.navigation.type === 2);
+                                    if (source) {
+                                        // Restablecer los valores de los campos de la tarjeta a vacío o eliminarlos
+                                        document.getElementById('cc-number').value = '';
+                                        document.getElementById('cc-expiration').value = '';
+                                        document.getElementById('cc-cvv').value = '';
 
-                                // Realiza una petición AJAX a tu archivo PHP
-                                var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function () {
-                                    if (this.readyState === 4 && this.status === 200) {
-                                        // Maneja la respuesta del servidor si es necesario
-                                        alert(this.responseText);
+                                        var modal = new bootstrap.Modal(
+                                            document.getElementById("staticBackdrop")
+                                        );
+
+                                        // Activar el modal
+                                        modal.hide();
                                     }
-                                };
-                                xhttp.open("POST", "../php/historialPedidos.php", true);
-                                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                xhttp.send("data=" + encodeURIComponent(data));
-                            }
+                                });
+                                document
+                                    .getElementById("compramamalona")
+                                    .addEventListener("click", function (event) {
+                                        // Array con la información de los campos a verificar
+                                        var fields = [
+                                            { id: "firstName", regex: /^[A-Za-z]+$/, uppercase: true },
+                                            { id: "lastName", regex: /^[A-Za-z]+$/, uppercase: true },
+                                            { id: "address", regex: null, uppercase: false },
+                                            { id: "zip", regex: /^\d{5}$/, uppercase: false }
+                                        ];
+                                        var efectivoRadio = document.getElementById("efectivo");
+                                        if (!efectivoRadio.checked) {
+                                            var fields2 = [
+                                                { id: "cc-name", regex: /^[A-Z]+(?:\s+[A-Z]+)+$/, uppercase: true },
+                                                { id: "cc-number", regex: null, uppercase: false },
+                                                { id: "cc-expiration", regex: null, uppercase: false },
+                                                { id: "cc-cvv", regex: null, uppercase: false },
+                                            ];
+                                            console.log("asdasdasdasd")
+                                            var fields = fields.concat(fields2);
+                                        }
+                                        // Variable para controlar si se deben detener las validaciones
+                                        var stopValidations = false;
+                                        // Verificar campos vacíos y expresiones regulares
+                                        fields.forEach(function (field) {
+                                            var input = document.getElementById(field.id);
+                                            var value = input.value.trim();
+                                            // Convertir a mayúsculas si está especificado en el campo
+                                            if (field.uppercase) {
+                                                value = value.toUpperCase();
+                                                input.value = value;
+                                            }
+                                            if (value === "") {
+                                                input.classList.add("is-invalid");
+                                                stopValidations = true;
+                                            } else {
+                                                input.classList.remove("is-invalid");
+
+                                                if (field.regex !== null && !field.regex.test(value)) {
+                                                    input.classList.add("is-invalid");
+                                                    stopValidations = true;
+                                                } else {
+                                                    input.classList.remove("is-invalid");
+                                                }
+                                            }
+                                        });
+                                        // Detener el envío del formulario si hay campos inválidos
+                                        if (stopValidations) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            return;
+                                        }
+                                        // Alerta cuando los campos son válidos
+                                        alert("Los campos son válidos. ¡Compra realizada con éxito!");
+                                        if (true) {
+                                            var modal = new bootstrap.Modal(
+                                                document.getElementById("staticBackdrop")
+                                            );
+
+                                            // Activar el modal
+                                            modal.show();
+
+                                            //console.log("El botón ha sido presionado.");
+                                            // Espera 5 segundos (5000 milisegundos) antes de redirigir
+                                            const tiempoEspera = 5000;
+
+                                            var data = JSON.stringify(<?php echo json_encode($data); ?>);
+
+                                            $.ajax({
+                                                url: '../php/insertarPedidos.php',
+                                                method: 'POST',
+                                                data: {
+                                                    data: data // Agrega el dato 'data' al objeto 'data'
+                                                }, success: function (response) {
+                                                    //console.log('Los datos fueron enviados correctamente');
+                                                    //console.log('Respuesta del servidor: ' + response);
+                                                },
+                                                error: function () {
+                                                    console.log('Error al enviar los datos');
+                                                }
+                                            });
+
+                                            setTimeout(function () {
+                                                // Redirige a otra página
+                                                window.location.href = "menu.php";
+                                            }, tiempoEspera);
+                                        }
+
+
+                                    });
+
+                            });
                         </script>
 
 
@@ -271,6 +418,9 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script src="../js/confirmarCompra.js"></script>
     <!-- Bootstrap core JS-->
